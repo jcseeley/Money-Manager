@@ -42,6 +42,8 @@ const NetWorthDash = () => {
   const [carLoan, setCarLoan] = useState(0);
   const [mortgage, setMortgage] = useState(0);
 
+  const [netWorth, setNetWorth] = useState(125000);
+
   const [housing, setHousing] = useState(0);
   const [healthcare, setHealthcare] = useState(0);
   const [food, setFood] = useState(0);
@@ -354,7 +356,7 @@ const NetWorthDash = () => {
           </table>
 
           {/* LIABILITIES TABLE */}
-          <table className="table table-compact mb-2">
+          <table className="table table-compact mb-6">
             <thead>
               <tr>
                 <th>Liabilities</th>
@@ -416,6 +418,13 @@ const NetWorthDash = () => {
                 <td>{formatDollars(mortgage)}</td>
               </tr>
 
+              <br />
+              <tr className="active">
+                <td className="w-fit font-bold text-lg text-green-400 italic">NET WORTH</td>
+                <td className="italic text-center text-lg font-bold text-green-400">ASSETS - LIABILITIES</td>
+                <td className="text-lg italic font-bold text-green-400">{formatDollars(netWorth)}</td>
+              </tr>
+
             </tbody>
           </table>
 
@@ -426,7 +435,7 @@ const NetWorthDash = () => {
                 <th>Monthly Expenses</th>
                 <th className="text-center">Enter Amount</th>
                 <th>Current</th>
-                <th>50-30-20</th>
+                <th>Ideal</th>
               </tr>
             </thead>
             <tbody>
