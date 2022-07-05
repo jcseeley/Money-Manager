@@ -61,6 +61,7 @@ const NetWorthDash = () => {
     const emergencyMonthsInput = event.target.emergency.value;
     const employerPlanInput = event.target.employerPlan.value;
     const employerMatchInput = event.target.employerMatch.value;
+    const ageInput = event.target.age.value;
 
     const checkingInput = event.target.checking.value;
     const savingsInput = event.target.savings.value;
@@ -91,6 +92,8 @@ const NetWorthDash = () => {
       setEmployerRetirement(employerPlanInput);
     } if (employerMatchInput > 0) {
       setEmployerMatch(parse(employerMatchInput));
+    } if (ageInput > 0) {
+      setAge(parse(ageInput));
     } if (checkingInput > 0) {
       setChecking(parse(checkingInput));
     } if (savingsInput > 0) {
