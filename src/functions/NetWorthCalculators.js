@@ -15,8 +15,8 @@ export const formatDollars = (money) => {
   }
 }
 
-export const getAssetTotal = (checking, savings, realEstate, investments, retirement, car) => {
-  const totalAssets = parse(checking + savings + realEstate + investments + retirement + car);
+export const getAssetTotal = (checking, savings, realEstate, crypto, retirement, ira, investments, car) => {
+  const totalAssets = parse(checking + savings + realEstate + crypto + retirement + ira + investments + car);
   return totalAssets;
 }
 
@@ -30,14 +30,9 @@ export const getNetWorth = (totalAssets, totalLiabilities) => {
   return netWorth;
 }
 
-export const getMonthlyPreTaxIncome = (income) => {
-  const monthlyGross = parse(income / 12);
-  return monthlyGross;
-}
-
-export const getMonthlyPostTaxIncome = (netIncome) => {
-  const monthlyNet = parse(netIncome / 12);
-  return monthlyNet;
+export const getMonthlyIncome = (income) => {
+  const monthlyIncome = parse(income / 12);
+  return monthlyIncome;
 }
 
 export const getNecessaryMonthlyTotal = (rent, health, food, studentLoan, car) => {
@@ -45,19 +40,44 @@ export const getNecessaryMonthlyTotal = (rent, health, food, studentLoan, car) =
   return totalNecessary;
 }
 
-export const getAdditionalMonthlyTotal = (travel, shopping, dining, other) => {
+export const getExtraMonthlyTotal = (travel, shopping, dining, other) => {
   const totalAdditional = parse(travel + shopping + dining + other);
   return totalAdditional;
 }
 
-export const getCombinedMonthlyTotal = (necessary, additional) => {
-  const monthlyTotal = parse(necessary + additional);
+export const getMonthlySavingsTotal = (cash, retirement, ira, brokerage) => {
+  const totalSavings = parse(cash + retirement + ira + brokerage);
+  return totalSavings;
+}
+
+export const getCombinedMonthlyTotal = (necessary, savings, additional) => {
+  const monthlyTotal = parse(necessary + savings + additional);
   return monthlyTotal;
 }
 
 export const getMonthlyNet = (monthlyPostTax, totalMonthlyExpenses) => {
-  const monthlyNet = parse(monthlyPostTax, totalMonthlyExpenses);
+  const monthlyNet = parse(monthlyPostTax - totalMonthlyExpenses);
   return monthlyNet;
+}
+
+export const getIdealChecking = (monthlyEmergency) => {
+  const idealChecking = parse(monthlyEmergency * 1.3);
+  return idealChecking;
+}
+
+export const getDifference = (current, ideal) => {
+  const difference = parse(current - ideal);
+  return difference;
+}
+
+export const getIdealSavings = (emergencyMonths, monthlyEmergency) => {
+   const idealSavings = parse(emergencyMonths * monthlyEmergency);
+  return idealSavings;
+}
+
+export const getIdealHousing = (monthlyNet) => {
+  const idealHousing = parse(monthlyNet * .3);
+  return idealHousing;
 }
 
 export const getNeedsValue = (monthlyNet) => {
@@ -73,6 +93,57 @@ export const getWantsValue = (monthlyNet) => {
 export const getInvestValue = (monthlyNet) => {
   const twentyPercent = parse(monthlyNet * .2);
   return twentyPercent;
+}
+
+export const getEmployerMatch = (monthlyNet, monthlyRetirement, employerMatchPercent) => {
+  const employerMax = parse(monthlyNet * (employerMatchPercent / 100));
+  const employerMatchAmount = employerMax >= monthlyRetirement ? monthlyRetirement : employerMax; 
+  return employerMatchAmount;
+}
+
+export const getMaxEmployerMatch = (monthlyNet, employerMatchPercent) => {
+  const employerMax = parse(monthlyNet * (employerMatchPercent / 100));
+  return employerMax;
+}
+
+export const getSavingsContributions = (age, checking, idealChecking, savings, emergencySavings, monthlyNet, needsTotal, idealInvest, employerPlan) => {
+  const retirementMaxPerMonth = 1708.33;
+  const fiftyMaxPerMonth = 2250;
+  const iraMaxPerMonth = 500;
+  const fiftyIraMaxPerMonth = 583.33;
+  let cash = 0;
+  let retirement = 0;
+  let ira = 0;
+  let brokerage = 0;
+
+  if (monthlyNet > needsTotal) {
+    const planBool = employerPlan !== 'No';
+    const availableFunds = monthlyNet - needsTotal;
+    const checkAccountDif = (checking + savings) - (idealChecking + emergencySavings); 
+    const accountDif = checkAccountDif >= 0 ? 0 : Math.abs(checkAccountDif);
+    const retirementMax = age >= 50 ? fiftyMaxPerMonth : retirementMaxPerMonth;
+    const iraMax = age >= 50 ? fiftyIraMaxPerMonth : iraMaxPerMonth;
+    let funds = availableFunds > idealInvest ? idealInvest : availableFunds;
+    if (planBool) {
+      cash = (funds - accountDif) >= 0 ? accountDif : funds;
+      funds -= cash;
+      retirement = (funds - retirementMax) >= 0 ? retirementMax : funds;
+      funds -= retirement;
+      ira = (funds - iraMax) >= 0 ? iraMax : funds;
+      funds -= ira;
+      brokerage = funds;
+      return [cash, retirement, ira, brokerage];
+    } else {
+      cash = (funds - accountDif) >= 0 ? accountDif : funds;
+      funds -= cash;
+      ira = (funds - iraMax) >= 0 ? iraMax : funds;
+      funds -= ira;
+      brokerage = funds;
+      return [cash, retirement, ira, brokerage];
+    }
+  } else {
+    return [0, 0, 0, 0];
+  }
 }
 
 // Income Tax Calculators - assumes W2 employee/single filer/standard deductions
