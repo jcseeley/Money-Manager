@@ -1,8 +1,8 @@
 # Description
 
-Income Tax Calculator for 2022. The calculator assumes a single filer, W2 employee with standard deductions. It handles all US States and the District of Columbia. Enter your annual income and the 2 digit abbreviation for your state of residence to see the full estimated tax breakdown. *Enter "DC" for Washington, DC!*
+Money Manager. Fill out the form to get a breakdown of your spending based on the 50-30-20 Rule. *NOTE* The function that returns your post tax income uses 2022 values and assumes a single filer, W2 employee with standard deductions. It handles all US States and the District of Columbia. Enter your annual income and the 2 digit abbreviation for your state of residence. *Enter "DC" for Washington, DC!*
 
-Visit http://jcseeley.github.io/Income-Tax-Calculator to use the app!
+Visit http://jcseeley.github.io/Money-Manager to use the app!
 
 # Getting Started with Create React App
 
