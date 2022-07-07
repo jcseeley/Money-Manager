@@ -1,6 +1,6 @@
 {
-  "homepage": "http://jcseeley.github.io/Income-Tax-Calculator",
-  "name": "how-to-spend-your-money",
+  "homepage": "http://jcseeley.github.io/Money-Manager",
+  "name": "money-manager",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
