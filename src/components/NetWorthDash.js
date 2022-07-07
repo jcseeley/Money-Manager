@@ -547,7 +547,10 @@ const NetWorthDash = () => {
             <tbody>
               {/* STATE INPUT */}
               <tr className="hover">
-                <td className="w-60">State of Residence</td>
+                <td className="w-60">
+                  <p>State of Residence</p>
+                  <p className="text-xs italic mt-1">Enter "DC" for Washington, DC</p>
+                </td>
                 <td>
                   <input id='state' className="w-fit input input-bordered input-xs text-center"
                     type='text'
