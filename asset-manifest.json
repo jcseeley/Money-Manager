@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Money-Manager/static/css/main.2426df9c.css",
+    "main.js": "/Money-Manager/static/js/main.fd9caed2.js",
+    "index.html": "/Money-Manager/index.html",
+    "main.2426df9c.css.map": "/Money-Manager/static/css/main.2426df9c.css.map",
+    "main.fd9caed2.js.map": "/Money-Manager/static/js/main.fd9caed2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2426df9c.css",
+    "static/js/main.fd9caed2.js"
+  ]
+}
