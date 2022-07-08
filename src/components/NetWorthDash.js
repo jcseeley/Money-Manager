@@ -132,7 +132,7 @@ const NetWorthDash = () => {
     const diningInput = parse(event.target.diningMonthly.value) || 0;
     const shoppingInput = parse(event.target.shoppingMonthly.value) || 0;
     const otherInput = parse(event.target.otherMonthly.value) || 0;
-    // document.getElementById("form").reset();
+
     return getValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, investmentInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, travelInput, diningInput, shoppingInput, otherInput);
   }
 
@@ -339,8 +339,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td>
                   <p>Checking Account</p>
-                  <p className="text-xs italic underline mt-1">50-30-20</p>
-                  <p className="text-xs italic">1 months expenses + 30%</p>
+                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs italic text-green-500">1 months expenses + 30%</p>
                 </td>
                 <td>
                   <input id="checking" className="input input-bordered input-xs text-center"
@@ -358,8 +358,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-60">
                   <p>Savings Account</p>
-                  <p className="text-xs italic underline mt-1">50-30-20</p>
-                  <p className="text-xs italic">#emergency months x expenses</p>
+                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs italic text-green-500">#emergency months x expenses</p>
                 </td>
                 <td className="w-44">
                   <input id="savings" className="input input-bordered input-xs text-center"
@@ -608,8 +608,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-60">
                   <p>Housing (Rent/Mortgage)</p>
-                  <p className="text-xs italic underline mt-1">50-30-20</p>
-                  <p className="text-xs italic">30% of Monthly Net</p>
+                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs italic text-green-500">30% of Monthly Net</p>
                 </td>
                 <td>
                   <input id='housing' className="w-fit input input-bordered input-xs text-center"
@@ -676,10 +676,10 @@ const NetWorthDash = () => {
               </tr>
               {/* MONTHLY NECESSARY TOTAL ROW */}
               <tr className="hover">
-                <td className="font-bold italic text-red-500">
-                  <p>Needs Total</p>
-                  <p className="text-xs italic underline mt-1">50-30-20</p>
-                  <p className="text-xs italic">50% of Monthly Net</p>
+                <td className="font-bold italic">
+                  <p className=" text-red-500">Needs Total</p>
+                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs italic text-green-500">50% of Monthly Net</p>
                 </td>
                 <td></td>
                 <td className="font-bold text-red-500">{formatDollars(necessaryMonthly)}</td>
@@ -740,8 +740,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-fit">
                   <p>Employer Retirement Match</p>
-                  <p className="text-xs italic underline mt-1">50-30-20</p>
-                  <p className="text-xs italic">Max Match Per Month</p>
+                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs italic text-green-500">Max Match Per Month</p>
                 </td>
                 <td className="text-center">{employerMatch}%</td>
                 <td>{formatDollars(retirementEmployerMatch)}</td>
@@ -781,8 +781,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="font-bold italic text-yellow-500">
                   <p>Savings Total</p>
-                  <p className="text-xs italic underline mt-1">50-30-20</p>
-                  <p className="text-xs italic">20% of Monthly Net</p>
+                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs italic text-green-500">20% of Monthly Net</p>
                 </td>
                 <td></td>
                 <td className="font-bold text-yellow-500">{formatDollars(totalSavingsMonthly)}</td>
@@ -859,8 +859,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="font-bold italic text-orange-500">
                   <p>Wants Total</p>
-                  <p className="text-xs italic underline mt-1">50-30-20</p>
-                  <p className="text-xs italic">30% of Monthly Net</p>
+                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs italic text-green-500">30% of Monthly Net</p>
                 </td>
                 <td></td>
                 <td className="font-bold text-orange-500">{formatDollars(totalExtras)}</td>
@@ -871,8 +871,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="font-bold italic text-red-500">
                   <p>Total Monthly Expenses</p>
-                  <p className="text-xs italic underline mt-1">50-30-20</p>
-                  <p className="text-xs italic">Monthly Net Income</p>
+                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs italic text-green-500">Monthly Net Income</p>
                 </td>
                 <td></td>
                 <td className="font-bold text-red-500">{formatDollars(totalMonthlyExpenses)}</td>
