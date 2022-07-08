@@ -61,6 +61,7 @@ const NetWorthDash = () => {
   // MONTHLY NECESSARY
   const [housing, setHousing] = useState(0);
   const [idealHousing, setIdealHousing] = useState(0);
+  const [housingDif, setHousingDif] = useState(0);
   const [healthcare, setHealthcare] = useState(0);
   const [food, setFood] = useState(0);
   const [studentPayment, setStudentPayment] = useState(0);
@@ -161,6 +162,7 @@ const NetWorthDash = () => {
     const idealNeedsVal = getNeedsValue(monthlyPostTaxVal);
     const idealSaveVal = getInvestValue(monthlyPostTaxVal);
     const idealWantsVal = getWantsValue(monthlyPostTaxVal);
+    const housingDifVal = getDifference(housingInput, idealHousingVal);
     const needsDifVal = getDifference(monthlyNecessaryVal, idealNeedsVal)
     const investDifVal = getDifference(totalSavingsVal, idealSaveVal);
     const wantsDifVal = getDifference(monthlyExtraVal, idealWantsVal);
@@ -342,7 +344,7 @@ const NetWorthDash = () => {
                   <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
                   <p className="text-xs italic text-green-500">1 months expenses + 30%</p>
                 </td>
-                <td>
+                <td className="align-top">
                   <input id="checking" className="input input-bordered input-xs text-center"
                     type='number'
                     step='.01'
@@ -350,9 +352,9 @@ const NetWorthDash = () => {
                     name='checking'
                     placeholder='Balance' />
                 </td>
-                <td>{formatDollars(checking)}</td>
-                <td className="text-green-500 font-bold">{formatDollars(idealChecking)}</td>
-                <td className="text-blue-500 font-bold">{formatDollars(checkingDifference)}</td>
+                <td className="align-top">{formatDollars(checking)}</td>
+                <td className="text-green-500 font-bold align-top">{formatDollars(idealChecking)}</td>
+                <td className="text-blue-500 font-bold align-top">{formatDollars(checkingDifference)}</td>
               </tr>
               {/* SAVINGS ASSET INPUT */}
               <tr className="hover">
@@ -361,7 +363,7 @@ const NetWorthDash = () => {
                   <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
                   <p className="text-xs italic text-green-500">#emergency months x expenses</p>
                 </td>
-                <td className="w-44">
+                <td className="w-44 align-top">
                   <input id="savings" className="input input-bordered input-xs text-center"
                     type='number'
                     step='.01'
@@ -369,9 +371,9 @@ const NetWorthDash = () => {
                     name='savings'
                     placeholder='Balance' />
                 </td>
-                <td>{formatDollars(savings)}</td>
-                <td className="text-green-500 font-bold">{formatDollars(idealSavings)}</td>
-                <td className="text-blue-500 font-bold">{formatDollars(savingsDifference)}</td>
+                <td className="align-top">{formatDollars(savings)}</td>
+                <td className="text-green-500 font-bold align-top">{formatDollars(idealSavings)}</td>
+                <td className="text-blue-500 font-bold align-top">{formatDollars(savingsDifference)}</td>
               </tr>
               {/* REAL ESTATE ASSET INPUT */}
               <tr className="hover">
@@ -611,7 +613,7 @@ const NetWorthDash = () => {
                   <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
                   <p className="text-xs italic text-green-500">30% of Monthly Net</p>
                 </td>
-                <td>
+                <td className="align-top">
                   <input id='housing' className="w-fit input input-bordered input-xs text-center"
                     type='number'
                     step='.01'
@@ -619,8 +621,9 @@ const NetWorthDash = () => {
                     name='housing'
                     placeholder='Per Month' />
                 </td>
-                <td>{formatDollars(housing)}</td>
-                <td className="text-green-500 font-bold">{formatDollars(idealHousing)}</td>
+                <td className="align-top">{formatDollars(housing)}</td>
+                <td className="text-green-500 font-bold align-top">{formatDollars(idealHousing)}</td>
+                <td className="text-blue-500 font-bold align-top">{formatDollars(housingDif)}</td>
               </tr>
               {/* MONTHLY HEALTHCARE INPUT */}
               <tr className="hover">
@@ -682,9 +685,9 @@ const NetWorthDash = () => {
                   <p className="text-xs italic text-green-500">50% of Monthly Net</p>
                 </td>
                 <td></td>
-                <td className="font-bold text-red-500">{formatDollars(necessaryMonthly)}</td>
-                <td className="font-bold text-green-500">{formatDollars(idealNecessaryMonthly)}</td>
-                <td className="font-bold text-blue-500">{formatDollars(needsDif)}</td>
+                <td className="font-bold text-red-500 align-top">{formatDollars(necessaryMonthly)}</td>
+                <td className="font-bold text-green-500 align-top">{formatDollars(idealNecessaryMonthly)}</td>
+                <td className="font-bold text-blue-500 align-top">{formatDollars(needsDif)}</td>
               </tr>
             </tbody>
           </table>
@@ -743,9 +746,9 @@ const NetWorthDash = () => {
                   <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
                   <p className="text-xs italic text-green-500">Max Match Per Month</p>
                 </td>
-                <td className="text-center">{employerMatch}%</td>
-                <td>{formatDollars(retirementEmployerMatch)}</td>
-                <td className="text-green-500 font-bold">{formatDollars(maxEmployerMatch)}</td>
+                <td className="text-center align-top">{employerMatch}%</td>
+                <td className="align-top">{formatDollars(retirementEmployerMatch)}</td>
+                <td className="text-green-500 font-bold align-top">{formatDollars(maxEmployerMatch)}</td>
               </tr>
               {/* MONTHLY IRA INPUT */}
               <tr className="hover">
@@ -785,9 +788,9 @@ const NetWorthDash = () => {
                   <p className="text-xs italic text-green-500">20% of Monthly Net</p>
                 </td>
                 <td></td>
-                <td className="font-bold text-yellow-500">{formatDollars(totalSavingsMonthly)}</td>
-                <td className="font-bold text-green-500">{formatDollars(idealSavingsMonthly)}</td>
-                <td className="font-bold text-blue-500">{formatDollars(investDif)}</td>
+                <td className="font-bold text-yellow-500 align-top">{formatDollars(totalSavingsMonthly)}</td>
+                <td className="font-bold text-green-500 align-top">{formatDollars(idealSavingsMonthly)}</td>
+                <td className="font-bold text-blue-500 align-top">{formatDollars(investDif)}</td>
               </tr>
             </tbody>
           </table>
@@ -863,9 +866,9 @@ const NetWorthDash = () => {
                   <p className="text-xs italic text-green-500">30% of Monthly Net</p>
                 </td>
                 <td></td>
-                <td className="font-bold text-orange-500">{formatDollars(totalExtras)}</td>
-                <td className="font-bold text-green-500">{formatDollars(idealTotalExtras)}</td>
-                <td className="font-bold text-blue-500">{formatDollars(wantsDif)}</td>
+                <td className="font-bold text-orange-500 align-top">{formatDollars(totalExtras)}</td>
+                <td className="font-bold text-green-500 align-top">{formatDollars(idealTotalExtras)}</td>
+                <td className="font-bold text-blue-500 align-top">{formatDollars(wantsDif)}</td>
               </tr>
               {/* MONTHLY EXPENSES TOTAL */}
               <tr className="hover">
@@ -875,9 +878,9 @@ const NetWorthDash = () => {
                   <p className="text-xs italic text-green-500">Monthly Net Income</p>
                 </td>
                 <td></td>
-                <td className="font-bold text-red-500">{formatDollars(totalMonthlyExpenses)}</td>
-                <td className="font-bold text-green-500">{formatDollars(postTaxMonthlyIncome)}</td>
-                <td className="font-bold text-blue-500">{formatDollars(netMonthlyIncome)}</td>
+                <td className="font-bold text-red-500 align-top">{formatDollars(totalMonthlyExpenses)}</td>
+                <td className="font-bold text-green-500 align-top">{formatDollars(postTaxMonthlyIncome)}</td>
+                <td className="font-bold text-blue-500 align-top">{formatDollars(netMonthlyIncome)}</td>
               </tr>
             </tbody>
           </table>
