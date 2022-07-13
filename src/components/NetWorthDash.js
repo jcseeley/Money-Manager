@@ -250,7 +250,7 @@ const NetWorthDash = () => {
 
   return (
     <React.Fragment>
-      <div className="grid font-bold">
+      <div className="grid font-bold ml-4 mr-4">
         <h1 className="text-center text-5xl font-bold italic mt-4 mb-4">Money Manager</h1>
         <p className="text-center mb-4">A breakdown of your spending based on the 50-30-20 Rule.</p>
         <p className="text-center text-sm italic mb-4">* income after tax assumes single file, W2 employee with standard deductions *</p>
