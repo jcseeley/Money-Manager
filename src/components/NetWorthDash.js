@@ -692,8 +692,8 @@ const NetWorthDash = () => {
               </tr>
             </tbody>
           </table>
-          <div className="tooltip mt-2 mb-2" data-tip="If possible, 20% of your net income should be saved. Industry experts recommend filling your emergency savings before contributing to any retirement or investment accounts. If your emergency savings is full, you should then focus on your employer sponsored retirement plan. If the annual max isn't feasible, try to at least meet the percentage your employer will match per pay period. Next fill your IRA, then contribute any remaining funds to your brokerage account. The '50-30-20' values below reflect these suggestions based on your age and available income.">
-            <button className="btn">Hover For Savings Info</button>
+          <div className="grid tooltip mt-2 mb-2" data-tip="If possible, 20% of your net income should be saved. Industry experts recommend filling your emergency savings before contributing to any retirement or investment accounts. If your emergency savings is full, you should then focus on your employer sponsored retirement plan. If the annual max isn't feasible, try to at least meet the percentage your employer will match per pay period. Next fill your IRA, then contribute any remaining funds to your brokerage account. The '50-30-20' values below reflect these suggestions based on your age and available income.">
+            <button className="justify-self-center btn w-fit">Hover For Savings Info</button>
           </div>
           {/* MONTHLY SAVINGS TABLE */}
           <table className="table table-compact">
