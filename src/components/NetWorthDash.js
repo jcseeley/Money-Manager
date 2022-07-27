@@ -639,9 +639,9 @@ const NetWorthDash = () => {
                 </td>
                 <td>{formatDollars(healthcare)}</td>
               </tr>
-              {/* MONTHLY FOOD INPUT */}
+              {/* MONTHLY GROCERY INPUT */}
               <tr className="hover">
-                <td className="w-fit">Food</td>
+                <td className="w-fit">Groceries</td>
                 <td>
                   <input id='food' className="w-fit input input-bordered input-xs text-center"
                     type='number'
