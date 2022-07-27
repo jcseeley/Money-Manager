@@ -41,7 +41,9 @@ const NetWorthDash = () => {
   const [crypto, setCrypto] = useState(0);
   const [retirement, setRetirement] = useState(0);
   const [ira, setIra] = useState(0);
-  const [investments, setInvestments] = useState(0);
+  const [publicEquity, setPublicEquity] = useState(0);
+  const [privateEquity, setPrivateEquity] = useState(0);
+  const [rsu, setRsu] = useState(0);
   const [carAsset, setCarAsset] = useState(0);
   const [totalAssets, setTotalAssets] = useState(0);
   // LIABILITIES
@@ -109,7 +111,9 @@ const NetWorthDash = () => {
     const cryptoInput = parse(event.target.crypto.value) || 0;
     const retirementInput = parse(event.target.retirement.value) || 0;
     const iraInput = parse(event.target.ira.value) || 0;
-    const investmentInput = parse(event.target.investments.value) || 0;
+    const publicInput = parse(event.target.publicEquity.value) || 0;
+    const privateInput = parse(event.target.privateEquity.value) || 0;
+    const rsuInput = parse(event.target.rsu.value) || 0;
     const carAssetInput = parse(event.target.carAsset.value) || 0;
     // LIABILITY INPUTS
     const creditDebtInput = parse(event.target.creditDebt.value) || 0;
@@ -134,13 +138,13 @@ const NetWorthDash = () => {
     const shoppingInput = parse(event.target.shoppingMonthly.value) || 0;
     const otherInput = parse(event.target.otherMonthly.value) || 0;
 
-    return getValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, investmentInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, travelInput, diningInput, shoppingInput, otherInput);
+    return getValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, travelInput, diningInput, shoppingInput, otherInput);
   }
 
-  const getValues = (emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, investmentInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, travelInput, diningInput, shoppingInput, otherInput) => {
+  const getValues = (emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, travelInput, diningInput, shoppingInput, otherInput) => {
     // NET WORTH CALCULATIONS
     const totalLiabilitiesVal = getLiabilityTotal(creditDebtInput, studentDebtInput, carLoanInput, mortgageInput);
-    const totalAssetVal = getAssetTotal(checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, investmentInput, carAssetInput);
+    const totalAssetVal = getAssetTotal(checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput);
     const netWorthVal = getNetWorth(totalAssetVal, totalLiabilitiesVal);
     // INCOME CALCULATIONS
     const annualPostTaxVal = getNetIncome(stateInput, annualIncomeInput);
@@ -175,17 +179,19 @@ const NetWorthDash = () => {
     const employerMatchVal = getEmployerMatch(monthlyPostTaxVal, retirementMonthlyInput, employerMatchInput);
     const employerMatchMax = getMaxEmployerMatch(monthlyPostTaxVal, employerMatchInput);
 
-    return setValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, investmentInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, totalLiabilitiesVal, totalAssetVal, netWorthVal, stateInput, annualIncomeInput, annualPostTaxVal, monthlyIncomeVal, monthlyPostTaxVal, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, monthlyNecessaryVal, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, totalSavingsVal, travelInput, diningInput, shoppingInput, otherInput, monthlyExtraVal, totalMonthlyVal, monthlyNetVal, idealCheckingVal, checkingDifVal, idealSavingsVal, savingsDifVal, idealHousingVal, idealNeedsVal, idealSaveVal, idealWantsVal, housingDifVal, idealCashVal, idealRetirementVal, idealIraVal, idealBrokerageVal, employerMatchVal, employerMatchMax, needsDifVal, investDifVal, wantsDifVal);
+    return setValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, totalLiabilitiesVal, totalAssetVal, netWorthVal, stateInput, annualIncomeInput, annualPostTaxVal, monthlyIncomeVal, monthlyPostTaxVal, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, monthlyNecessaryVal, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, totalSavingsVal, travelInput, diningInput, shoppingInput, otherInput, monthlyExtraVal, totalMonthlyVal, monthlyNetVal, idealCheckingVal, checkingDifVal, idealSavingsVal, savingsDifVal, idealHousingVal, idealNeedsVal, idealSaveVal, idealWantsVal, housingDifVal, idealCashVal, idealRetirementVal, idealIraVal, idealBrokerageVal, employerMatchVal, employerMatchMax, needsDifVal, investDifVal, wantsDifVal);
   }
 
-  const setValues = (emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, investmentInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput,  totalLiabilitiesVal, totalAssetVal, netWorthVal, stateInput, annualIncomeInput, annualPostTaxVal, monthlyIncomeVal, monthlyPostTaxVal, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, monthlyNecessaryVal, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, totalSavingsVal, travelInput, diningInput, shoppingInput, otherInput, monthlyExtraVal, totalMonthlyVal, monthlyNetVal, idealCheckingVal, checkingDifVal, idealSavingsVal, savingsDifVal, idealHousingVal, idealNeedsVal, idealSaveVal, idealWantsVal, housingDifVal, idealCashVal, idealRetirementVal, idealIraVal, idealBrokerageVal, employerMatchVal, employerMatchMax, needsDifVal, investDifVal, wantsDifVal) => {
+  const setValues = (emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput,  totalLiabilitiesVal, totalAssetVal, netWorthVal, stateInput, annualIncomeInput, annualPostTaxVal, monthlyIncomeVal, monthlyPostTaxVal, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, monthlyNecessaryVal, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, totalSavingsVal, travelInput, diningInput, shoppingInput, otherInput, monthlyExtraVal, totalMonthlyVal, monthlyNetVal, idealCheckingVal, checkingDifVal, idealSavingsVal, savingsDifVal, idealHousingVal, idealNeedsVal, idealSaveVal, idealWantsVal, housingDifVal, idealCashVal, idealRetirementVal, idealIraVal, idealBrokerageVal, employerMatchVal, employerMatchMax, needsDifVal, investDifVal, wantsDifVal) => {
     // SET QUESTION VALUES
     setEmergencyMonths(emergencyMonthsInput);
     setEmployerRetirement(employerPlanInput);
     setEmployerMatch(employerMatchInput);
     setAge(ageInput);
     setIra(iraInput);
-    setInvestments(investmentInput);
+    setPublicEquity(publicInput);
+    setPrivateEquity(privateInput);
+    setRsu(rsuInput);
     setCarAsset(carAssetInput);
     // SET ASSET VALUES
     setChecking(checkingInput);
@@ -266,8 +272,8 @@ const NetWorthDash = () => {
               </tr>
             </thead>
             <tbody>
-            {/* EMERGENCY SAVINGS QUESTION */}
-            <tr className="hover">
+              {/* EMERGENCY SAVINGS QUESTION */}
+              <tr className="hover">
                 <td>How many months of emergency savings would you like to have?</td>
                 <td>
                   <select name="emergency" className="w-32 border border-current bg-base-100 text-center">
@@ -428,18 +434,44 @@ const NetWorthDash = () => {
                 </td>
                 <td>{formatDollars(ira)}</td>
               </tr>
-              {/* INVESTMENTS ASSET INPUT */}
+              {/* PUBLIC EQUITIES INPUT */}
               <tr className="hover">
-                <td className="w-fit">Investments (Outside Retirement)</td>
+                <td className="w-fit">Public Equities</td>
                 <td>
-                  <input id='investments' className="w-fit input input-bordered input-xs text-center"
+                  <input id='public' className="w-fit input input-bordered input-xs text-center"
                     type='number'
                     step='.01'
                     min='0'
-                    name='investments'
+                    name='publicEquity'
                     placeholder='Value' />
                 </td>
-                <td>{formatDollars(investments)}</td>
+                <td>{formatDollars(publicEquity)}</td>
+              </tr>
+              {/* PRIVATE EQUITIES INPUT */}
+              <tr className="hover">
+                <td className="w-fit">Private Equities</td>
+                <td>
+                  <input id='private' className="w-fit input input-bordered input-xs text-center"
+                    type='number'
+                    step='.01'
+                    min='0'
+                    name='privateEquity'
+                    placeholder='Value' />
+                </td>
+                <td>{formatDollars(privateEquity)}</td>
+              </tr>
+              {/* RSU INPUT */}
+              <tr className="hover">
+                <td className="w-fit">RSUs</td>
+                <td>
+                  <input id='rsu' className="w-fit input input-bordered input-xs text-center"
+                    type='number'
+                    step='.01'
+                    min='0'
+                    name='rsu'
+                    placeholder='Value' />
+                </td>
+                <td>{formatDollars(rsu)}</td>
               </tr>
               {/* CAR ASSET INPUT */}
               <tr className="hover">

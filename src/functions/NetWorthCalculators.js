@@ -15,8 +15,8 @@ export const formatDollars = (money) => {
   }
 }
 
-export const getAssetTotal = (checking, savings, realEstate, crypto, retirement, ira, investments, car) => {
-  const totalAssets = parse(checking + savings + realEstate + crypto + retirement + ira + investments + car);
+export const getAssetTotal = (checking, savings, realEstate, crypto, retirement, ira, publicEquity, privateEquity, rsu, car) => {
+  const totalAssets = parse(checking + savings + realEstate + crypto + retirement + ira + publicEquity + privateEquity + rsu + car);
   return totalAssets;
 }
 
