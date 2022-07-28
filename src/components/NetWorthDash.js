@@ -29,6 +29,7 @@ const NetWorthDash = () => {
   const [emergencyMonths, setEmergencyMonths] = useState(3);
   const [employerRetirement, setEmployerRetirement] = useState("No");
   const [employerMatch, setEmployerMatch] = useState(0);
+  const [maxOrMatch, setMaxOrMatch] = useState("No");
   const [age, setAge] = useState(0);
   // ASSETS
   const [checking, setChecking] = useState(0);
@@ -103,6 +104,7 @@ const NetWorthDash = () => {
     const emergencyMonthsInput = parse(event.target.emergency.value) || 3;
     const employerPlanInput = event.target.employerPlan.value || 'No';
     const employerMatchInput = parse(event.target.employerMatch.value) || 0;
+    const maxOrMatchInput = event.target.maxOrMatch.value || 'No';
     const ageInput = parse(event.target.age.value) || 0;
     // ASSET INPUTS
     const checkingInput = parse(event.target.checking.value) || 0;
@@ -138,10 +140,10 @@ const NetWorthDash = () => {
     const shoppingInput = parse(event.target.shoppingMonthly.value) || 0;
     const otherInput = parse(event.target.otherMonthly.value) || 0;
 
-    return getValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, travelInput, diningInput, shoppingInput, otherInput);
+    return getValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, maxOrMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, travelInput, diningInput, shoppingInput, otherInput);
   }
 
-  const getValues = (emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, travelInput, diningInput, shoppingInput, otherInput) => {
+  const getValues = (emergencyMonthsInput, employerPlanInput, employerMatchInput, maxOrMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, travelInput, diningInput, shoppingInput, otherInput) => {
     // NET WORTH CALCULATIONS
     const totalLiabilitiesVal = getLiabilityTotal(creditDebtInput, studentDebtInput, carLoanInput, mortgageInput);
     const totalAssetVal = getAssetTotal(checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput);
@@ -179,14 +181,15 @@ const NetWorthDash = () => {
     const employerMatchVal = getEmployerMatch(monthlyPostTaxVal, retirementMonthlyInput, employerMatchInput);
     const employerMatchMax = getMaxEmployerMatch(monthlyPostTaxVal, employerMatchInput);
 
-    return setValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, totalLiabilitiesVal, totalAssetVal, netWorthVal, stateInput, annualIncomeInput, annualPostTaxVal, monthlyIncomeVal, monthlyPostTaxVal, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, monthlyNecessaryVal, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, totalSavingsVal, travelInput, diningInput, shoppingInput, otherInput, monthlyExtraVal, totalMonthlyVal, monthlyNetVal, idealCheckingVal, checkingDifVal, idealSavingsVal, savingsDifVal, idealHousingVal, idealNeedsVal, idealSaveVal, idealWantsVal, housingDifVal, idealCashVal, idealRetirementVal, idealIraVal, idealBrokerageVal, employerMatchVal, employerMatchMax, needsDifVal, investDifVal, wantsDifVal);
+    return setValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, maxOrMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, totalLiabilitiesVal, totalAssetVal, netWorthVal, stateInput, annualIncomeInput, annualPostTaxVal, monthlyIncomeVal, monthlyPostTaxVal, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, monthlyNecessaryVal, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, totalSavingsVal, travelInput, diningInput, shoppingInput, otherInput, monthlyExtraVal, totalMonthlyVal, monthlyNetVal, idealCheckingVal, checkingDifVal, idealSavingsVal, savingsDifVal, idealHousingVal, idealNeedsVal, idealSaveVal, idealWantsVal, housingDifVal, idealCashVal, idealRetirementVal, idealIraVal, idealBrokerageVal, employerMatchVal, employerMatchMax, needsDifVal, investDifVal, wantsDifVal);
   }
 
-  const setValues = (emergencyMonthsInput, employerPlanInput, employerMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput,  totalLiabilitiesVal, totalAssetVal, netWorthVal, stateInput, annualIncomeInput, annualPostTaxVal, monthlyIncomeVal, monthlyPostTaxVal, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, monthlyNecessaryVal, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, totalSavingsVal, travelInput, diningInput, shoppingInput, otherInput, monthlyExtraVal, totalMonthlyVal, monthlyNetVal, idealCheckingVal, checkingDifVal, idealSavingsVal, savingsDifVal, idealHousingVal, idealNeedsVal, idealSaveVal, idealWantsVal, housingDifVal, idealCashVal, idealRetirementVal, idealIraVal, idealBrokerageVal, employerMatchVal, employerMatchMax, needsDifVal, investDifVal, wantsDifVal) => {
+  const setValues = (emergencyMonthsInput, employerPlanInput, employerMatchInput, maxOrMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoInput, retirementInput, iraInput, publicInput, privateInput, rsuInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput,  totalLiabilitiesVal, totalAssetVal, netWorthVal, stateInput, annualIncomeInput, annualPostTaxVal, monthlyIncomeVal, monthlyPostTaxVal, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, monthlyNecessaryVal, cashMonthlyInput, retirementMonthlyInput, iraMonthlyInput, brokerageMonthlyInput, totalSavingsVal, travelInput, diningInput, shoppingInput, otherInput, monthlyExtraVal, totalMonthlyVal, monthlyNetVal, idealCheckingVal, checkingDifVal, idealSavingsVal, savingsDifVal, idealHousingVal, idealNeedsVal, idealSaveVal, idealWantsVal, housingDifVal, idealCashVal, idealRetirementVal, idealIraVal, idealBrokerageVal, employerMatchVal, employerMatchMax, needsDifVal, investDifVal, wantsDifVal) => {
     // SET QUESTION VALUES
     setEmergencyMonths(emergencyMonthsInput);
     setEmployerRetirement(employerPlanInput);
     setEmployerMatch(employerMatchInput);
+    setMaxOrMatch(maxOrMatchInput);
     setAge(ageInput);
     setIra(iraInput);
     setPublicEquity(publicInput);
@@ -263,7 +266,7 @@ const NetWorthDash = () => {
         {/* FORM START */}
         <form id="form" className="justify-self-center" onSubmit={handleFormSubmission}>
           {/* PRELIMINARY QUESTIONS */}
-          <table className="table table-compact mb-2">
+          <table className="table table-compact mb-1">
             <thead>
               <tr>
                 <th>Preliminary Questions</th>
@@ -296,7 +299,8 @@ const NetWorthDash = () => {
                 <td>
                   <select name="employerPlan" className="border border-current bg-base-100 w-32 text-center">
                     <option>No</option>
-                    <option>401k</option>
+                    <option value="Traditional">Traditional 401k (Pre-Tax)</option>
+                    <option value="Roth">Roth 401k (Post-Tax)</option>
                     <option>403b</option>
                     <option>TSP</option>
                     <option>SEP IRA</option>
@@ -317,6 +321,18 @@ const NetWorthDash = () => {
                 </td>
                 <td className="text-center">{employerMatch}%</td>
               </tr>
+              {/* RETIREMENT MAX OR MATCH */}
+              <tr className="hover">
+                <td>Would you like to maximize your contribution or match your employer?</td>
+                <td>
+                  <select name="maxOrMatch" className="w-32 border border-current bg-base-100 text-center">
+                    <option value="No">No Contribution</option>
+                    <option value="Max">Maximize</option>
+                    <option value="Match">Match Employer</option>
+                  </select>
+                </td>
+                <td className="text-center">{maxOrMatch}</td>
+              </tr>
               {/* AGE QUESTION */}
               <tr className="hover">
                 <td>What is your age?</td>
@@ -332,6 +348,15 @@ const NetWorthDash = () => {
               </tr>
             </tbody>
           </table>
+          {/* RETIREMENT INFO */}
+          <div className="grid grid-flow-col auto-cols w-full mb-3">
+            <div className="grid tooltip" data-tip="If your contributions are pre-tax, you have a Traditional. If they are post-tax, you have a Roth. Still not sure? Check the line items on your paystub to see if your contribution was deducted before or after taxes were taken.">
+              <button className="justify-self-center btn btn-xs w-fit">Hover for 401k: Traditional vs Roth</button>
+            </div>
+            <div className="grid tooltip" data-tip="We always recommend contributing the annual maximum to your retirement accounts if possible. For an Employer Sponsored Plan, if you are unable to max, you should at least contribute whatever percentage your employer will match.">
+              <button className="justify-self-start btn btn-xs w-fit">Hover for Retirement Information</button>
+            </div>
+          </div>
           {/* ASSET TABLE */}
           <table className="table table-compact mb-4">
             <thead>
@@ -724,8 +749,9 @@ const NetWorthDash = () => {
               </tr>
             </tbody>
           </table>
+          {/* SAVINGS INFO */}
           <div className="grid tooltip mt-2 mb-2" data-tip="If possible, 20% of your net income should be saved. Industry experts recommend filling your emergency savings before contributing to any retirement or investment accounts. If your emergency savings is full, you should then focus on your employer sponsored retirement plan. If the annual max isn't feasible, try to at least meet the percentage your employer will match per pay period. Next fill your IRA, then contribute any remaining funds to your brokerage account. The '50-30-20' values below reflect these suggestions based on your age and available income.">
-            <button className="justify-self-center btn w-fit">Hover For Savings Info</button>
+            <button className="justify-self-center btn btn-sm w-fit">Hover For Savings Info</button>
           </div>
           {/* MONTHLY SAVINGS TABLE */}
           <table className="table table-compact">
