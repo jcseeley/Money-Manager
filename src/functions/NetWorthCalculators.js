@@ -7,10 +7,10 @@ export const parse = (number) => {
 
 export const formatDollars = (money) => {
   if (money >= 0) {
-    const positiveFormat = "$" + (money).toLocaleString("en-US");
+    const positiveFormat = "$" + (money.toFixed(2)).toLocaleString("en-US");
     return positiveFormat;
   } else {
-    const negativeFormat = "-$" + (Math.abs(money)).toLocaleString("en-US");
+    const negativeFormat = "-$" + (Math.abs(money).toFixed(2)).toLocaleString("en-US");
     return negativeFormat;
   }
 }
@@ -30,6 +30,16 @@ export const getNetWorth = (totalAssets, totalLiabilities) => {
   return netWorth;
 }
 
+// export const getPreTaxRetirement = (income, employerPlan, employerMatch, maxOrMatch, age) => {
+//   const retirementMaxPerMonth = 1708.33;
+//   const fiftyMaxPerMonth = 2250;
+//   const maxPerMonth = age >= 50 ? fiftyMaxPerMonth : retirementMaxPerMonth; 
+
+//   if (employerPlan !== 'Roth' && employerPlan !== 'No' && maxOrMatch !== 'No') {
+    
+//   }
+// }
+
 export const getMonthlyIncome = (income) => {
   const monthlyIncome = parse(income / 12);
   return monthlyIncome;
@@ -45,8 +55,8 @@ export const getExtraMonthlyTotal = (travel, shopping, dining, other) => {
   return totalAdditional;
 }
 
-export const getMonthlySavingsTotal = (cash, retirement, ira, brokerage) => {
-  const totalSavings = parse(cash + retirement + ira + brokerage);
+export const getMonthlySavingsTotal = (cash, retirement, ira, brokerage, crypto, rsu) => {
+  const totalSavings = parse(cash + retirement + ira + brokerage + crypto + rsu);
   return totalSavings;
 }
 
@@ -118,6 +128,8 @@ export const getSavingsContributions = (age, checking, idealChecking, savings, e
 
   if (monthlyNet > needsTotal) {
     const planBool = employerPlan !== 'No';
+    // const preTaxBool = planBool && employerPlan !== 'Roth';
+    // const grossOrNet = preTaxBool ? monthlyGross : monthlyNet;
     const availableFunds = monthlyNet - needsTotal;
     const checkAccountDif = (checking + savings) - (idealChecking + emergencySavings); 
     const accountDif = checkAccountDif >= 0 ? 0 : Math.abs(checkAccountDif);
