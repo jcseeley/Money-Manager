@@ -29,6 +29,7 @@ const NetWorthDash = () => {
   // PRELIMINARY QUESTIONS
   const [emergencyMonths, setEmergencyMonths] = useState(3);
   const [employerRetirement, setEmployerRetirement] = useState("No");
+  const [employerQuestions, setEmployerQuestions] = useState(false);
   const [employerMatch, setEmployerMatch] = useState(0);
   const [maxOrMatch, setMaxOrMatch] = useState("No");
   const [age, setAge] = useState(0);
@@ -103,14 +104,20 @@ const NetWorthDash = () => {
   const [totalMonthlyExpenses, setTotalMonthlyExpenses] = useState(0);
   const [netMonthlyIncome, setNetMonthlyIncome] = useState(0);
 
+  // DISPLAY EMPLOYER QUESTIONS
+  const showEmployerQuestions = (ev) => {
+    const val = ev.target.value;
+    val !== 'No' ? setEmployerQuestions(true) : setEmployerQuestions(false);
+  }
+
   // FORM HANDLER FUNCTION
   const handleFormSubmission = (event) => {
     event.preventDefault();
     // PRELIMINARY INPUTS
     const emergencyMonthsInput = parse(event.target.emergency.value) || 3;
     const employerPlanInput = event.target.employerPlan.value || 'No';
-    const employerMatchInput = parse(event.target.employerMatch.value) || 0;
-    const maxOrMatchInput = event.target.maxOrMatch.value || 'No';
+    const employerMatchInput = employerQuestions === true ? parse(event.target.employerMatch.value) || 0 : 0;
+    const maxOrMatchInput = employerQuestions === true ? event.target.maxOrMatch.value || 'No' : 'No';
     const ageInput = parse(event.target.age.value) || 0;
     // ASSET INPUTS
     const checkingInput = parse(event.target.checking.value) || 0;
@@ -138,8 +145,8 @@ const NetWorthDash = () => {
     const studentPaymentInput = parse(event.target.studentPayment.value) || 0;
     const carPaymentInput = parse(event.target.carPayment.value) || 0;
     const cashMonthlyInput = parse(event.target.cashMonthly.value) || 0;
-    const retirementDollarsInput = esrInputType === '$' ? parse(event.target.retirementMonthlyDollars.value) : 0;
-    const retirementPercentInput = esrInputType === '%' ? parse(event.target.retirementMonthlyPercent.value) : 0;
+    const retirementDollarsInput = esrInputType === '$' ? parse(event.target.retirementMonthlyDollars.value) || 0 : 0;
+    const retirementPercentInput = esrInputType === '%' ? parse(event.target.retirementMonthlyPercent.value) || 0 : 0;
     const iraMonthlyInput = parse(event.target.iraMonthly.value) || 0;
     const brokerageMonthlyInput = parse(event.target.brokerageMonthly.value) || 0;
     const cryptoSavingsInput = parse(event.target.cryptoMonthly.value) || 0;
@@ -303,7 +310,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td>How many months of emergency savings would you like to have?</td>
                 <td>
-                  <select name="emergency" className="w-32 border border-current bg-base-100 text-center">
+                  <select name="emergency" className="w-36 border border-current bg-base-100 text-center">
                     <option>---</option>
                     <option>3</option>
                     <option>4</option>
@@ -321,10 +328,10 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td>Do you have an Employer Sponsored Retirement Plan?</td>
                 <td>
-                  <select name="employerPlan" className="border border-current bg-base-100 w-32 text-center">
+                  <select onChange={showEmployerQuestions} name="employerPlan" className="border border-current bg-base-100 w-36 text-center">
                     <option>No</option>
-                    <option value="Traditional">Traditional 401k (Pre-Tax)</option>
-                    <option value="Roth">Roth 401k (Post-Tax)</option>
+                    <option value="Traditional">Traditional 401k</option>
+                    <option value="Roth">Roth 401k</option>
                     <option>403b</option>
                     <option>TSP</option>
                     <option>SEP IRA</option>
@@ -332,37 +339,39 @@ const NetWorthDash = () => {
                 </td>
                 <td className="text-center">{employerRetirement}</td>
               </tr>
-              {/* EMPLOYER MATCH QUESTION */}
-              <tr className="hover">
-                <td>If so, does your employer match?</td>
-                <td>
-                  <input className="w-32 input input-bordered input-xs text-center" 
-                    type='number'
-                    step='1'
-                    min='0'
-                    name="employerMatch"
-                    placeholder="Percentage" />
-                </td>
-                <td className="text-center">{employerMatch}%</td>
-              </tr>
-              {/* RETIREMENT MAX OR MATCH */}
-              <tr className="hover">
-                <td>How much would you like to contribute each month?</td>
-                <td>
-                  <select name="maxOrMatch" className="w-32 border border-current bg-base-100 text-center">
-                    <option value="No">No Contribution</option>
-                    <option value="Max">Maximize</option>
-                    <option value="Match">Match Employer</option>
-                    <option value="Other">Other Amount</option>
-                  </select>
-                </td>
-                <td className="text-center">{maxOrMatch}</td>
-              </tr>
+              {employerQuestions && (<>
+                {/* EMPLOYER MATCH QUESTION */}
+                <tr className="hover">
+                  <td>Does your employer match?</td>
+                  <td>
+                    <input className="w-36 input input-bordered input-xs text-center"
+                      type='number'
+                      step='1'
+                      min='0'
+                      name="employerMatch"
+                      placeholder="Percentage" />
+                  </td>
+                  <td className="text-center">{employerMatch}%</td>
+                </tr>
+                {/* RETIREMENT MAX OR MATCH */}
+                <tr className="hover">
+                  <td>How much would you like to contribute each month?</td>
+                  <td>
+                    <select name="maxOrMatch" className="w-36 border border-current bg-base-100 text-center">
+                      <option value="No">No Contribution</option>
+                      <option value="Max">Maximize</option>
+                      <option value="Match">Match Employer</option>
+                      <option value="Other">Other Amount</option>
+                    </select>
+                  </td>
+                  <td className="text-center">{maxOrMatch}</td>
+                </tr>
+              </>)}
               {/* AGE QUESTION */}
               <tr className="hover">
                 <td>What is your age?</td>
                 <td>
-                  <input className="w-32 input input-bordered input-xs text-center" 
+                  <input className="w-36 input input-bordered input-xs text-center"
                     type='number'
                     step='1'
                     min='0'
@@ -818,7 +827,7 @@ const NetWorthDash = () => {
                 <td className="w-fit">
                   <p>Employer Sponsored Retirement</p>
                   <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">{maxOrMatch} Contribution</p>
+                  <p className="text-xs italic text-green-500">{maxOrMatch !== 'Match' ? maxOrMatch + ' Contribution': 'Employer Match'}</p>
                 </td>
                 <td className="text-center align-top">
                   <div className="float-left">
@@ -855,7 +864,7 @@ const NetWorthDash = () => {
                 <td className="w-fit">
                   <p>Employer Retirement Match</p>
                   <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">Max Match Per Month</p>
+                  <p className="text-xs italic text-green-500">{maxOrMatch === 'No' ? 'No Contribution' : maxOrMatch + ' Per Month'}</p>
                 </td>
                 <td className="text-center align-top">{employerMatch}%</td>
                 <td className="align-top">{formatDollars(retirementEmployerMatch)}</td>
