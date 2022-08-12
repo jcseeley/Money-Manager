@@ -7,10 +7,10 @@ export const parse = (number) => {
 
 export const formatDollars = (money) => {
   if (money >= 0) {
-    const positiveFormat = "$" + (money.toFixed(2)).toLocaleString("en-US");
+    const positiveFormat = "$" + parse(money.toFixed(2)).toLocaleString('en-US');
     return positiveFormat;
   } else {
-    const negativeFormat = "-$" + (Math.abs(money).toFixed(2)).toLocaleString("en-US");
+    const negativeFormat = "-$" + parse(Math.abs(money).toFixed(2)).toLocaleString('en-US');
     return negativeFormat;
   }
 }
@@ -29,16 +29,6 @@ export const getNetWorth = (totalAssets, totalLiabilities) => {
   const netWorth = parse(totalAssets - totalLiabilities);
   return netWorth;
 }
-
-// export const getPreTaxRetirement = (income, employerPlan, employerMatch, maxOrMatch, age) => {
-//   const retirementMaxPerMonth = 1708.33;
-//   const fiftyMaxPerMonth = 2250;
-//   const maxPerMonth = age >= 50 ? fiftyMaxPerMonth : retirementMaxPerMonth; 
-
-//   if (employerPlan !== 'Roth' && employerPlan !== 'No' && maxOrMatch !== 'No') {
-    
-//   }
-// }
 
 export const getMonthlyIncome = (income) => {
   const monthlyIncome = parse(income / 12);
@@ -114,6 +104,23 @@ export const getEmployerMatch = (monthlyNet, monthlyRetirement, employerMatchPer
 export const getMaxEmployerMatch = (monthlyNet, employerMatchPercent) => {
   const employerMax = parse(monthlyNet * (employerMatchPercent / 100));
   return employerMax;
+}
+// Needs to return actual pretax amount, max amount, and employer match amount 
+export const getPreTaxRetirement = (grossIncome, employerPlan, employerMatch, maxOrMatch, age, retirementDollars, retirementPercent) => {
+  const annualRetirementMax = 20500;
+  const fiftyMax = 27000;
+  const actualMax = age >= 50 ? fiftyMax : annualRetirementMax;
+  const percentContribution = parse(grossIncome * (retirementPercent/100));
+  const currentContribution = retirementDollars > 0 ? parse(retirementDollars * 12) : percentContribution;
+  const annualPreTaxContribution = currentContribution <= actualMax ? currentContribution : actualMax;
+  const maxEmployerMatch = parse((employerMatch/100) * grossIncome);
+  const actualEmployerMatch = annualPreTaxContribution >= maxEmployerMatch ? maxEmployerMatch : annualPreTaxContribution;
+  
+  if (employerPlan !== 'Roth' && employerPlan !== 'No' && maxOrMatch !== 'No') {
+    return [annualPreTaxContribution, actualEmployerMatch, actualMax, maxEmployerMatch];
+  } else {
+    return [0,0,0,0];
+  }
 }
 
 export const getSavingsContributions = (age, checking, idealChecking, savings, emergencySavings, monthlyNet, needsTotal, idealInvest, employerPlan) => {
