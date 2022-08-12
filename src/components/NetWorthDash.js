@@ -77,6 +77,7 @@ const NetWorthDash = () => {
   // MONTHLY SAVINGS
   const [cashSavings, setCashSavings] = useState(0);
   const [idealCashMonthly, setIdealCashMonthly] = useState(0);
+  const [esrInputType, setEsrInputType] = useState(null);
   const [retirementMonthly, setRetirementMonthly] = useState(0);
   const [idealRetirementMonthly, setIdealRetirementMonthly] = useState(0);
   const [retirementEmployerMatch, setRetirementEmployerMatch] = useState(0);
@@ -137,8 +138,8 @@ const NetWorthDash = () => {
     const studentPaymentInput = parse(event.target.studentPayment.value) || 0;
     const carPaymentInput = parse(event.target.carPayment.value) || 0;
     const cashMonthlyInput = parse(event.target.cashMonthly.value) || 0;
-    const retirementDollarsInput = parse(event.target.retirementMonthlyDollars.value) || 0;
-    const retirementPercentInput = parse(event.target.retirementMonthlyPercent.value) || 0;
+    const retirementDollarsInput = esrInputType === '$' ? parse(event.target.retirementMonthlyDollars.value) : 0;
+    const retirementPercentInput = esrInputType === '%' ? parse(event.target.retirementMonthlyPercent.value) : 0;
     const iraMonthlyInput = parse(event.target.iraMonthly.value) || 0;
     const brokerageMonthlyInput = parse(event.target.brokerageMonthly.value) || 0;
     const cryptoSavingsInput = parse(event.target.cryptoMonthly.value) || 0;
@@ -820,19 +821,31 @@ const NetWorthDash = () => {
                   <p className="text-xs italic text-green-500">{maxOrMatch} Contribution</p>
                 </td>
                 <td className="text-center align-top">
-                  <input className="w-16 float-left input input-bordered input-xs text-center"
-                  type='number'
-                  step='.01'
-                  min='0'
-                  name='retirementMonthlyDollars'
-                  placeholder='$$' />
-                  <span> or </span>
-                  <input className="w-16 float-right input input-bordered input-xs text-center"
+                  <div className="float-left">
+                    <input onChange={() => setEsrInputType('$')} type='radio' name='employerType' value='$'/>
+                    <label> Dollars</label>
+                  </div>
+                  <div className="float-right">
+                    <input onChange={() => setEsrInputType('%')} type='radio' name='employerType' value='%'/>
+                    <label> Percent</label>
+                  </div>
+                  <br />
+                  {esrInputType === '$' &&
+                    <input className="input input-bordered input-xs text-center mt-1"
+                    type='number'
+                    step='.01'
+                    min='0'
+                    name='retirementMonthlyDollars'
+                    placeholder='$ Per Month' />
+                  }
+                  {esrInputType === '%' &&
+                  <input className="input input-bordered input-xs text-center mt-1"
                   type='number'
                   step='1'
                   min='0'
                   name='retirementMonthlyPercent'
-                  placeholder='%' />
+                  placeholder='% Per Month' />
+                  }
                 </td>
                 <td className="align-top">{formatDollars(retirementMonthly)}</td>
                 <td className="text-green-500 font-bold align-top">{formatDollars(idealRetirementMonthly)}</td>
