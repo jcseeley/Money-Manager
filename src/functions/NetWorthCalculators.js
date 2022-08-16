@@ -9,6 +9,9 @@ export const formatDollars = (money) => {
   if (money >= 0) {
     const positiveFormat = "$" + parse(money.toFixed(2)).toLocaleString('en-US');
     return positiveFormat;
+    // const l = positiveFormat.length + 1;
+    // const i = positiveFormat.substring(positiveFormat.indexOf('.')).length;
+    // return i === 3 ? positiveFormat : positiveFormat.padEnd(l, '0'); 
   } else {
     const negativeFormat = "-$" + parse(Math.abs(money).toFixed(2)).toLocaleString('en-US');
     return negativeFormat;

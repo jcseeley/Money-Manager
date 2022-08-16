@@ -290,18 +290,18 @@ const NetWorthDash = () => {
 
   return (
     <React.Fragment>
-      <div className="grid font-bold ml-4 mr-4">
-        <h1 className="text-center text-5xl font-bold italic mt-4 mb-4">Money Manager</h1>
+      <div className="grid text-aura-purple bg-center bg-gradient-to-br from-aura-green/50 via-aura-pink/50 to-aura-purple/50">
+        <h1 id="header" className="text-center text-5xl mt-4 mb-4">Money Manager</h1>
         <p className="text-center mb-4">A breakdown of your spending based on the 50-30-20 Rule.</p>
         <p className="text-center text-sm italic mb-4">* income after tax assumes single file, W2 employee with standard deductions *</p>
         {/* FORM START */}
-        <form id="form" className="justify-self-center" onSubmit={handleFormSubmission}>
+        <form id="form" className="justify-self-center border-4 border-primary rounded-xl bg-base-100 mb-4" onSubmit={handleFormSubmission}>
           {/* PRELIMINARY QUESTIONS */}
-          <table className="table table-compact mb-1">
+          <table className="table table-compact mb-1 w-full">
             <thead>
               <tr>
                 <th>Preliminary Questions</th>
-                <th>Options</th>
+                <th className="text-center">Options</th>
                 <th>Current</th>
               </tr>
             </thead>
@@ -344,7 +344,7 @@ const NetWorthDash = () => {
                 <tr className="hover">
                   <td>Does your employer match?</td>
                   <td>
-                    <input className="w-36 input input-bordered input-xs text-center"
+                    <input className="w-36 input border-primary input-xs text-center placeholder:text-aura-purple"
                       type='number'
                       step='1'
                       min='0'
@@ -371,7 +371,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td>What is your age?</td>
                 <td>
-                  <input className="w-36 input input-bordered input-xs text-center"
+                  <input className="w-36 input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='1'
                     min='0'
@@ -387,12 +387,12 @@ const NetWorthDash = () => {
             <div className="grid tooltip" data-tip="If your contributions are pre-tax, you have a Traditional. If they are post-tax, you have a Roth. Still not sure? Check the line items on your paystub to see if your contribution was deducted before or after taxes were taken.">
               <button className="justify-self-center btn btn-xs w-fit">Hover for 401k: Traditional vs Roth</button>
             </div>
-            <div className="grid tooltip" data-tip="We always recommend contributing the annual maximum to your retirement accounts if possible. For an Employer Sponsored Plan, if you are unable to max, you should at least contribute whatever percentage your employer will match.">
+            <div className="grid tooltip" data-tip="If possible, experts recommend contributing the annual maximum to your retirement accounts. For an Employer Plan, if you can't max, you should at least meet the percentage your employer will match.">
               <button className="justify-self-start btn btn-xs w-fit">Hover for Retirement Information</button>
             </div>
           </div>
           {/* ASSET TABLE */}
-          <table className="table table-compact mb-4">
+          <table className="table table-compact mb-4 w-full">
             <thead>
               <tr>
                 <th className="w-60">Assets</th>
@@ -411,7 +411,7 @@ const NetWorthDash = () => {
                   <p className="text-xs italic text-green-500">1 months expenses + 30%</p>
                 </td>
                 <td className="align-top">
-                  <input id="checking" className="input input-bordered input-xs text-center"
+                  <input id="checking" className="input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -430,7 +430,7 @@ const NetWorthDash = () => {
                   <p className="text-xs italic text-green-500">#emergency months x expenses</p>
                 </td>
                 <td className="w-44 align-top">
-                  <input id="savings" className="input input-bordered input-xs text-center"
+                  <input id="savings" className="input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -445,7 +445,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-60">Real Estate</td>
                 <td>
-                  <input id='realEstate'className="w-fit input input-bordered input-xs text-center"
+                  <input id='realEstate'className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -453,12 +453,14 @@ const NetWorthDash = () => {
                     placeholder='Value' />
                 </td>
                 <td>{formatDollars(realEstate)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* CRYPTO ASSET INPUT */}
               <tr className="hover">
                 <td className="w-60">Cryptocurrency</td>
                 <td>
-                  <input id='crypto' className="w-fit input input-bordered input-xs text-center"
+                  <input id='crypto' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -466,12 +468,14 @@ const NetWorthDash = () => {
                     placeholder='Value' />
                 </td>
                 <td>{formatDollars(cryptoAsset)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* EMPLOYER RETIREMENT ASSET INPUT */}
               <tr className="hover">
                 <td className="w-60">Employer Sponsored Retirement</td>
                 <td>
-                  <input id='retirement' className="w-fit input input-bordered input-xs text-center"
+                  <input id='retirement' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -479,12 +483,14 @@ const NetWorthDash = () => {
                     placeholder='Balance' />
                 </td>
                 <td>{formatDollars(retirement)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* IRA ASSET INPUT */}
               <tr className="hover">
                 <td className="w-fit">IRA</td>
                 <td>
-                    <input id='ira' className="w-fit input input-bordered input-xs text-center"
+                    <input id='ira' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -492,12 +498,14 @@ const NetWorthDash = () => {
                     placeholder='Balance' />
                 </td>
                 <td>{formatDollars(ira)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* PUBLIC EQUITIES INPUT */}
               <tr className="hover">
                 <td className="w-fit">Public Equities</td>
                 <td>
-                  <input id='public' className="w-fit input input-bordered input-xs text-center"
+                  <input id='public' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -505,12 +513,14 @@ const NetWorthDash = () => {
                     placeholder='Value' />
                 </td>
                 <td>{formatDollars(publicEquity)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* PRIVATE EQUITIES INPUT */}
               <tr className="hover">
                 <td className="w-fit">Private Equities</td>
                 <td>
-                  <input id='private' className="w-fit input input-bordered input-xs text-center"
+                  <input id='private' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -518,6 +528,8 @@ const NetWorthDash = () => {
                     placeholder='Value' />
                 </td>
                 <td>{formatDollars(privateEquity)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* RSU INPUT */}
               <tr className="hover">
@@ -527,7 +539,7 @@ const NetWorthDash = () => {
                   <p className="text-xs italic text-green-500">10% of Total Assets</p>
                 </td>
                 <td className="align-top">
-                  <input id='rsu' className="w-fit input input-bordered input-xs text-center"
+                  <input id='rsu' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -542,7 +554,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td id='carAsset' className="w-fit">Car (If Owned)</td>
                 <td>
-                  <input className="w-fit input input-bordered input-xs text-center"
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     name='carAsset'
                     step='.01'
@@ -550,17 +562,21 @@ const NetWorthDash = () => {
                     placeholder='Value' />
                 </td>
                 <td>{formatDollars(carAsset)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* TOTAL ASSETS ROW */}
               <tr className="hover">
                 <td className="font-bold italic text-lime-400">Total Assets</td>
                 <td></td>
                 <td className="font-bold text-lime-400">{formatDollars(totalAssets)}</td>
+                <td></td>
+                <td></td>
               </tr>
             </tbody>
           </table>
           {/* LIABILITIES TABLE */}
-          <table className="table table-compact mb-6">
+          <table className="table table-compact mb-6 w-full">
             <thead>
               <tr>
                 <th className="w-60">Liabilities</th>
@@ -573,7 +589,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td id='creditDebt' className="w-60">Credit Card Debt</td>
                 <td>
-                  <input className="w-fit input input-bordered input-xs text-center"
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     name='creditDebt'
                     step='.01'
@@ -586,7 +602,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td id='studentDebt' className="w-fit">Student Loan Debt</td>
                 <td>
-                  <input className="w-fit input input-bordered input-xs text-center"
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     name='studentDebt'
                     step='.01'
@@ -599,7 +615,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td id='carLoan' className="w-fit">Car (Loan/Lease)</td>
                 <td>
-                  <input className="w-fit input input-bordered input-xs text-center"
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     name='carLoan'
                     step='.01'
@@ -612,7 +628,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td id='mortgage' className="w-fit">Mortgage</td>
                 <td>
-                  <input className="w-fit input input-bordered input-xs text-center"
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     name='mortgage'
                     step='.01'
@@ -636,7 +652,7 @@ const NetWorthDash = () => {
             </tbody>
           </table>
           {/* INCOME TABLE */}
-          <table className="table table-compact mb-4">
+          <table className="table table-compact mb-4 w-full">
             <thead>
               <tr>
                 <th className="w-60">Income</th>
@@ -652,7 +668,7 @@ const NetWorthDash = () => {
                   <p className="text-xs italic mt-1">Enter "DC" for Washington, DC</p>
                 </td>
                 <td>
-                  <input id='state' className="w-fit input input-bordered input-xs text-center"
+                  <input id='state' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='text'
                     name='state'
                     placeholder='State Abbreviation' />
@@ -663,7 +679,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td>Annual Income</td>
                 <td>
-                  <input id='income' className="w-fit input input-bordered input-xs text-center"
+                  <input id='income' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -693,7 +709,7 @@ const NetWorthDash = () => {
             </tbody>
           </table>
           {/* MONTHLY NEEDS TABLE */}
-          <table className="table table-compact">
+          <table className="table table-compact w-full">
             <thead>
               <tr>
                 <th className="w-60">Monthly Needs</th>
@@ -712,7 +728,7 @@ const NetWorthDash = () => {
                   <p className="text-xs italic text-green-500">30% of Monthly Net</p>
                 </td>
                 <td className="align-top">
-                  <input id='housing' className="w-fit input input-bordered input-xs text-center"
+                  <input id='housing' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -727,7 +743,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-fit">Healthcare</td>
                 <td>
-                  <input id='health' className="w-fit input input-bordered input-xs text-center"
+                  <input id='health' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -735,12 +751,14 @@ const NetWorthDash = () => {
                     placeholder='Monthly Total' />
                 </td>
                 <td>{formatDollars(healthcare)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* MONTHLY GROCERY INPUT */}
               <tr className="hover">
                 <td className="w-fit">Groceries</td>
                 <td>
-                  <input id='food' className="w-fit input input-bordered input-xs text-center"
+                  <input id='food' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -748,12 +766,14 @@ const NetWorthDash = () => {
                     placeholder='Monthly Average' />
                 </td>
                 <td>{formatDollars(food)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* MONTHLY STUDENT LOAN PAYMENT INPUT */}
               <tr className="hover">
                 <td className="w-fit">Student Loans</td>
                 <td>
-                  <input id='studentPayment' className="w-fit input input-bordered input-xs text-center"
+                  <input id='studentPayment' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -761,12 +781,14 @@ const NetWorthDash = () => {
                     placeholder='Monthly Payment' />
                 </td>
                 <td>{formatDollars(studentPayment)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* MONTHLY CAR PAYMENT INPUT */}
               <tr className="hover">
                 <td className="w-fit">Car</td>
                 <td>
-                  <input id='carPayment' className="w-fit input input-bordered input-xs text-center"
+                  <input id='carPayment' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -774,6 +796,8 @@ const NetWorthDash = () => {
                     placeholder='Monthly Payment' />
                 </td>
                 <td>{formatDollars(carPayment)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* MONTHLY NECESSARY TOTAL ROW */}
               <tr className="hover">
@@ -794,7 +818,7 @@ const NetWorthDash = () => {
             <button className="justify-self-center btn btn-sm w-fit">Hover For Savings Info</button>
           </div>
           {/* MONTHLY SAVINGS TABLE */}
-          <table className="table table-compact">
+          <table className="table table-compact w-full mb-4">
             <thead>
               <tr>
                 <th className="w-60">Monthly Savings</th>
@@ -812,7 +836,7 @@ const NetWorthDash = () => {
                   {/* <p className="text-xs italic font-bold mt-1">* Ideal = +/- Ideal account balances *</p> */}
                 </td>
                 <td>
-                    <input className="w-40 input input-bordered input-xs text-center"
+                    <input className="w-40 input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -821,6 +845,7 @@ const NetWorthDash = () => {
                 </td>
                 <td>{formatDollars(cashSavings)}</td>
                 <td className="text-green-500 font-bold">{formatDollars(idealCashMonthly)}</td>
+                <td></td>
               </tr>
               {/* MONTHLY RETIREMENT INPUT */}
               <tr className="hover">
@@ -840,7 +865,7 @@ const NetWorthDash = () => {
                   </div>
                   <br />
                   {esrInputType === '$' &&
-                    <input className="input input-bordered input-xs text-center mt-1"
+                    <input className="input border-primary input-xs text-center mt-1 placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -848,7 +873,7 @@ const NetWorthDash = () => {
                     placeholder='$ Per Month' />
                   }
                   {esrInputType === '%' &&
-                  <input className="input input-bordered input-xs text-center mt-1"
+                  <input className="input border-primary input-xs text-center mt-1 placeholder:text-aura-purple"
                   type='number'
                   step='1'
                   min='0'
@@ -858,6 +883,7 @@ const NetWorthDash = () => {
                 </td>
                 <td className="align-top">{formatDollars(retirementMonthly)}</td>
                 <td className="text-green-500 font-bold align-top">{formatDollars(idealRetirementMonthly)}</td>
+                <td></td>
               </tr>
               {/* EMPLOYER RETIREMENT MATCH */}
               <tr className="hover">
@@ -869,6 +895,7 @@ const NetWorthDash = () => {
                 <td className="text-center align-top">{employerMatch}%</td>
                 <td className="align-top">{formatDollars(retirementEmployerMatch)}</td>
                 <td className="text-green-500 font-bold align-top">{formatDollars(maxEmployerMatch)}</td>
+                <td></td>
               </tr>
               {/* MONTHLY IRA INPUT */}
               <tr className="hover">
@@ -876,7 +903,7 @@ const NetWorthDash = () => {
                   <p>IRA</p>
                 </td>
                 <td>
-                  <input className="w-40 input input-bordered input-xs text-center"
+                  <input className="w-40 input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -885,12 +912,13 @@ const NetWorthDash = () => {
                 </td>
                 <td>{formatDollars(iraMonthly)}</td>
                 <td className="text-green-500 font-bold">{formatDollars(idealIraMonthly)}</td>
+                <td></td>
               </tr>
               {/* MONTHLY BROKERAGE INPUT */}
               <tr className="hover">
                 <td className="w-fit">Brokerage</td>
                 <td>
-                  <input className="w-40 input input-bordered input-xs text-center"
+                  <input className="w-40 input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -899,12 +927,13 @@ const NetWorthDash = () => {
                 </td>
                 <td>{formatDollars(brokerageMonthly)}</td>
                 <td className="text-green-500 font-bold">{formatDollars(idealBrokerageMonthly)}</td>
+                <td></td>
               </tr>
               {/* MONTHLY CRYPTO INPUT */}
               <tr className="hover">
                 <td className="w-fit">Cryptocurrency</td>
                 <td>
-                  <input className="w-40 input input-bordered input-xs text-center"
+                  <input className="w-40 input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -912,12 +941,14 @@ const NetWorthDash = () => {
                     placeholder='Monthly Contribution' />
                 </td>
                 <td>{formatDollars(crytpoSavings)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* MONTHLY RSU INPUT */}
               <tr className="hover">
                 <td className="w-fit">RSUs</td>
                 <td>
-                  <input className="w-40 input input-bordered input-xs text-center"
+                  <input className="w-40 input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -925,6 +956,8 @@ const NetWorthDash = () => {
                     placeholder='Monthly Contribution' />
                 </td>
                 <td>{formatDollars(rsuSavings)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* MONTHLY SAVINGS TOTAL */}
               <tr className="hover">
@@ -941,7 +974,7 @@ const NetWorthDash = () => {
             </tbody>
           </table>
           {/* MONTHLY WANTS TABLE */}
-          <table className="table table-compact">
+          <table className="table table-compact w-full">
             <thead>
               <tr>
                 <th className="w-60">Monthly Wants</th>
@@ -956,7 +989,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-fit">Travel</td>
                 <td>
-                  <input className="w-fit input input-bordered input-xs text-center"
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -964,12 +997,14 @@ const NetWorthDash = () => {
                     placeholder='Monthly Average' />
                 </td>
                 <td>{formatDollars(travel)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* MONTHLY DINING INPUT */}
               <tr className="hover">
                 <td className="w-fit">Dining</td>
                 <td>
-                  <input className="w-fit input input-bordered input-xs text-center"
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -977,12 +1012,14 @@ const NetWorthDash = () => {
                     placeholder='Monthly Average' />
                 </td>
                 <td>{formatDollars(dining)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* MONTHLY SHOPPING INPUT */}
               <tr className="hover">
                 <td className="w-fit">Shopping</td>
                 <td>
-                  <input className="w-fit input input-bordered input-xs text-center"
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -990,12 +1027,14 @@ const NetWorthDash = () => {
                     placeholder='Monthly Average' />
                 </td>
                 <td>{formatDollars(shopping)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* MONTHLY OTHER INPUT */}
               <tr className="hover">
                 <td className="w-fit">Other</td>
                 <td>
-                  <input className="w-fit input input-bordered input-xs text-center"
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
                     min='0'
@@ -1003,6 +1042,8 @@ const NetWorthDash = () => {
                     placeholder='Monthly Average' />
                 </td>
                 <td>{formatDollars(other)}</td>
+                <td></td>
+                <td></td>
               </tr>
               {/* MONTHLY WANTS TOTAL ROW */}
               <tr className="hover">
@@ -1032,7 +1073,7 @@ const NetWorthDash = () => {
           </table>
           {/* SUBMIT FORM BUTTON */}
           <div className="grid">
-            <button className="btn btn-outline btn-sm justify-self-center mt-4 mb-4" type='submit'>submit</button>
+            <button className="btn btn-primary btn-sm justify-self-center mt-4 mb-4" type='submit'>submit</button>
           </div>
         </form>
       </div>
