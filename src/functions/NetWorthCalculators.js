@@ -7,13 +7,10 @@ export const parse = (number) => {
 
 export const formatDollars = (money) => {
   if (money >= 0) {
-    const positiveFormat = "$" + parse(money.toFixed(2)).toLocaleString('en-US');
+    const positiveFormat = "$" + money.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     return positiveFormat;
-    // const l = positiveFormat.length + 1;
-    // const i = positiveFormat.substring(positiveFormat.indexOf('.')).length;
-    // return i === 3 ? positiveFormat : positiveFormat.padEnd(l, '0'); 
   } else {
-    const negativeFormat = "-$" + parse(Math.abs(money).toFixed(2)).toLocaleString('en-US');
+    const negativeFormat = "-$" + Math.abs(money).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     return negativeFormat;
   }
 }
@@ -78,36 +75,63 @@ export const getIdealSavings = (emergencyMonths, monthlyEmergency) => {
   return idealSavings;
 }
 
-export const getIdealHousing = (monthlyNet) => {
+export const getIdealHousing = (monthlyNet, monthlyPostRetirement, idealSave, maxOrMatchInput) => {
   const idealHousing = parse(monthlyNet * .3);
-  return idealHousing;
+  const overNetHousing = parse(monthlyPostRetirement * .4);
+  const net20 = parse(monthlyNet * .2);
+  const maxCheck = maxOrMatchInput === 'Max';
+
+  if (idealSave > net20 || maxCheck) {
+    return overNetHousing;
+  } else {
+    return idealHousing;
+  }
 }
 
-export const getNeedsValue = (monthlyNet) => {
+export const getNeedsValue = (monthlyNet, monthlyPostRetirement, idealSave, maxOrMatchInput) => {
   const fiftyPercent = parse(monthlyNet * .5);
-  return fiftyPercent; 
+  const overNetFifty = parse(monthlyPostRetirement * .6);
+  const net20 = parse(monthlyNet * .2);
+  // const maxCheck = maxOrMatchInput === 'Max';
+
+  if (idealSave > net20) {
+    return overNetFifty;
+  } else {
+    return fiftyPercent;
+  } 
 }
 
-export const getWantsValue = (monthlyNet) => {
+export const getWantsValue = (monthlyNet, monthlyPostRetirement, idealSave, maxOrMatchInput) => {
   const thirtyPercent = parse(monthlyNet * .3);
-  return thirtyPercent;
+  const overNetThirty = parse(monthlyPostRetirement * .4);
+  const net20 = parse(monthlyNet * .2);
+  // const maxCheck = maxOrMatchInput === 'Max';
+
+  if (idealSave > net20) {
+    return overNetThirty;
+  } else {
+    return thirtyPercent;
+  } 
 }
 
-export const getInvestValue = (monthlyNet) => {
-  const twentyPercent = parse(monthlyNet * .2);
-  return twentyPercent;
+export const getInvestValue = (monthlyNet, monthlyGross, employerPlan, maxOrMatch, currentContribution) => {
+  const twentyPercentNet = parse(monthlyNet * .2);
+  const twentyPercentGross = parse(monthlyGross * .2);
+  const maxContribution = currentContribution < twentyPercentGross ? currentContribution : twentyPercentGross;
+  const netOrMax = maxContribution < twentyPercentNet ? twentyPercentNet : maxContribution;
+  const planCheck = employerPlan !== 'No' && employerPlan !== 'Roth';
+
+  // if (planCheck && maxOrMatch === 'Max') {
+  //   return twentyPercentGross;
+  // } else if (planCheck && maxOrMatch === 'Other') {
+  //   return twentyPercentNet > grossOrOther ? twentyPercentNet : grossOrOther;
+  if (planCheck) {
+    return netOrMax;
+  } else {
+    return twentyPercentNet;
+  }
 }
 
-export const getEmployerMatch = (monthlyNet, monthlyRetirement, employerMatchPercent) => {
-  const employerMax = parse(monthlyNet * (employerMatchPercent / 100));
-  const employerMatchAmount = employerMax >= monthlyRetirement ? monthlyRetirement : employerMax; 
-  return employerMatchAmount;
-}
-
-export const getMaxEmployerMatch = (monthlyNet, employerMatchPercent) => {
-  const employerMax = parse(monthlyNet * (employerMatchPercent / 100));
-  return employerMax;
-}
 // Needs to return actual pretax amount, max amount, and employer match amount 
 export const getPreTaxRetirement = (grossIncome, employerPlan, employerMatch, maxOrMatch, age, retirementDollars, retirementPercent) => {
   const annualRetirementMax = 20500;
@@ -126,7 +150,7 @@ export const getPreTaxRetirement = (grossIncome, employerPlan, employerMatch, ma
   }
 }
 
-export const getSavingsContributions = (age, checking, idealChecking, savings, emergencySavings, monthlyNet, needsTotal, idealInvest, employerPlan) => {
+export const getSavingsContributions = (age, checking, idealChecking, savings, emergencySavings, monthlyNet, needsTotal, idealInvest, employerPlan, monthlyGross, maxOrMatch, employerMatch, currentContribution) => {
   const retirementMaxPerMonth = 1708.33;
   const fiftyMaxPerMonth = 2250;
   const iraMaxPerMonth = 500;
@@ -137,19 +161,28 @@ export const getSavingsContributions = (age, checking, idealChecking, savings, e
   let brokerage = 0;
 
   if (monthlyNet > needsTotal) {
-    const planBool = employerPlan !== 'No';
-    // const preTaxBool = planBool && employerPlan !== 'Roth';
-    // const grossOrNet = preTaxBool ? monthlyGross : monthlyNet;
-    const availableFunds = monthlyNet - needsTotal;
+    // returns true if there is a plan and they want to contribute
+    const planBool = employerPlan !== 'No' && maxOrMatch !== 'No';
+    // returns true if their plan is not a roth
+    const preTaxBool = planBool && employerPlan !== 'Roth';
+    // gross if plan is not roth, otherwise net
+    const grossOrNet = preTaxBool ? monthlyGross : monthlyNet;
+    // 20% of grossOrNet if max, employerMatch if not
+    const maxOrMatchMax = maxOrMatch === 'Max' ? parse(grossOrNet * .2) : parse(grossOrNet * (employerMatch/100));
+    // sets max amount => currentContribution if 'Other', maxOrMatchMax if not
+    const actualAmount = maxOrMatch === 'Other' ? currentContribution : maxOrMatchMax;
+    const availableFunds = grossOrNet - needsTotal;
     const checkAccountDif = (checking + savings) - (idealChecking + emergencySavings); 
     const accountDif = checkAccountDif >= 0 ? 0 : Math.abs(checkAccountDif);
     const retirementMax = age >= 50 ? fiftyMaxPerMonth : retirementMaxPerMonth;
+    const actualMax = retirementMax > actualAmount ? actualAmount : retirementMax;
     const iraMax = age >= 50 ? fiftyIraMaxPerMonth : iraMaxPerMonth;
     let funds = availableFunds > idealInvest ? idealInvest : availableFunds;
+
     if (planBool) {
       cash = (funds - accountDif) >= 0 ? accountDif : funds;
       funds -= cash;
-      retirement = (funds - retirementMax) >= 0 ? retirementMax : funds;
+      retirement = (funds - actualMax) >= 0 ? actualMax : funds;
       funds -= retirement;
       ira = (funds - iraMax) >= 0 ? iraMax : funds;
       funds -= ira;

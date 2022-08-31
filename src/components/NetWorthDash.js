@@ -20,8 +20,6 @@ import {
   getDifference,
   getIdealHousing,
   getSavingsContributions,
-  getEmployerMatch,
-  getMaxEmployerMatch,
   getPreTaxRetirement
 } from "../functions/NetWorthCalculators";
 
@@ -156,11 +154,7 @@ const NetWorthDash = () => {
     const shoppingInput = parse(event.target.shoppingMonthly.value) || 0;
     const otherInput = parse(event.target.otherMonthly.value) || 0;
     
-    if (retirementDollarsInput > 0 && retirementPercentInput > 0) {
-      return alert("Please only fill one retirement contribution field in the 'Monthly Savings' section!");
-    } else {
-      return getValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, maxOrMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoAssetInput, retirementInput, iraInput, publicInput, privateInput, rsuAssetInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementDollarsInput, retirementPercentInput, iraMonthlyInput, brokerageMonthlyInput, cryptoSavingsInput, rsuSavingsInput, travelInput, diningInput, shoppingInput, otherInput);
-    }
+    return getValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, maxOrMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoAssetInput, retirementInput, iraInput, publicInput, privateInput, rsuAssetInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementDollarsInput, retirementPercentInput, iraMonthlyInput, brokerageMonthlyInput, cryptoSavingsInput, rsuSavingsInput, travelInput, diningInput, shoppingInput, otherInput);
   }
 
   const getValues = (emergencyMonthsInput, employerPlanInput, employerMatchInput, maxOrMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoAssetInput, retirementInput, iraInput, publicInput, privateInput, rsuAssetInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, stateInput, annualIncomeInput, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, cashMonthlyInput, retirementDollarsInput, retirementPercentInput, iraMonthlyInput, brokerageMonthlyInput, cryptoSavingsInput, rsuSavingsInput, travelInput, diningInput, shoppingInput, otherInput) => {
@@ -173,10 +167,12 @@ const NetWorthDash = () => {
     const currentAnnualContributionVal = preTaxRetirementArr[0];
     const retirementMonthlyVal = parse(preTaxRetirementArr[0] / 12);
     const employerMatchVal = parse(preTaxRetirementArr[1] / 12);
-    const annualRetirementMaxVal = preTaxRetirementArr[2];
+    // const annualRetirementMaxVal = preTaxRetirementArr[2];
     const employerMatchMax = parse(preTaxRetirementArr[3] / 12);
     // INCOME CALCULATIONS
-    const annualPostTaxVal = getNetIncome(stateInput, (annualIncomeInput - currentAnnualContributionVal)) + currentAnnualContributionVal;
+    const annualPostRetirementIncome = parse(annualIncomeInput - currentAnnualContributionVal);
+    const monthlyPostRetirementIncome = parse(getNetIncome(stateInput, annualPostRetirementIncome)/12);
+    const annualPostTaxVal = getNetIncome(stateInput, annualPostRetirementIncome) + currentAnnualContributionVal;
     const monthlyIncomeVal = getMonthlyIncome(annualIncomeInput);
     const monthlyPostTaxVal = getMonthlyIncome(annualPostTaxVal);
     // MONTHLY CALCULATIONS
@@ -192,22 +188,20 @@ const NetWorthDash = () => {
     const idealSavingsVal = getIdealSavings(emergencyMonthsInput, monthlyEmergency);
     const savingsDifVal = getDifference(savingsInput, idealSavingsVal);
     const rsuIdealVal = parse(totalAssetVal * .1);
-    const idealHousingVal = getIdealHousing(monthlyPostTaxVal);
-    const idealNeedsVal = getNeedsValue(monthlyPostTaxVal);
-    const idealSaveVal = getInvestValue(monthlyPostTaxVal);
-    const idealWantsVal = getWantsValue(monthlyPostTaxVal);
+    const idealSaveVal = getInvestValue(monthlyPostTaxVal, monthlyIncomeVal, employerPlanInput, maxOrMatch, retirementMonthlyVal);
+    const idealHousingVal = getIdealHousing(monthlyPostTaxVal, monthlyPostRetirementIncome, idealSaveVal, maxOrMatchInput);
+    const idealNeedsVal = getNeedsValue(monthlyPostTaxVal, monthlyPostRetirementIncome, idealSaveVal, maxOrMatchInput);
+    const idealWantsVal = getWantsValue(monthlyPostTaxVal, monthlyPostRetirementIncome, idealSaveVal, maxOrMatchInput);
     const housingDifVal = getDifference(housingInput, idealHousingVal);
     const needsDifVal = getDifference(monthlyNecessaryVal, idealNeedsVal);
     const investDifVal = getDifference(totalSavingsVal, idealSaveVal);
     const wantsDifVal = getDifference(monthlyExtraVal, idealWantsVal);
     // SAVINGS CALCULATIONS
-    const savingsArr = getSavingsContributions(ageInput, checkingInput, idealCheckingVal, savingsInput, idealSavingsVal, monthlyPostTaxVal, monthlyNecessaryVal, idealSaveVal - (cryptoSavingsInput + rsuSavingsInput), employerPlanInput);
+    const savingsArr = getSavingsContributions(ageInput, checkingInput, idealCheckingVal, savingsInput, idealSavingsVal, monthlyPostTaxVal, monthlyNecessaryVal, idealSaveVal, employerPlanInput, monthlyIncomeVal, maxOrMatch, employerMatchInput, retirementMonthlyVal);
     const idealCashVal = savingsArr[0];
     const idealRetirementVal = savingsArr[1];
     const idealIraVal = savingsArr[2];
     const idealBrokerageVal = savingsArr[3];
-    // const employerMatchVal = getEmployerMatch(monthlyPostTaxVal, retirementMonthlyInput, employerMatchInput);
-    // const employerMatchMax = getMaxEmployerMatch(monthlyPostTaxVal, employerMatchInput);
 
     return setValues(emergencyMonthsInput, employerPlanInput, employerMatchInput, maxOrMatchInput, ageInput, checkingInput, savingsInput, realEstateInput, cryptoAssetInput, retirementInput, iraInput, publicInput, privateInput, rsuAssetInput, carAssetInput, creditDebtInput, studentDebtInput, carLoanInput, mortgageInput, totalLiabilitiesVal, totalAssetVal, netWorthVal, stateInput, annualIncomeInput, annualPostTaxVal, monthlyIncomeVal, monthlyPostTaxVal, housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput, monthlyNecessaryVal, cashMonthlyInput, retirementMonthlyVal, iraMonthlyInput, brokerageMonthlyInput, cryptoSavingsInput, rsuSavingsInput, totalSavingsVal, travelInput, diningInput, shoppingInput, otherInput, monthlyExtraVal, totalMonthlyVal, monthlyNetVal, idealCheckingVal, checkingDifVal, idealSavingsVal, savingsDifVal, rsuIdealVal, idealHousingVal, idealNeedsVal, idealSaveVal, idealWantsVal, housingDifVal, idealCashVal, idealRetirementVal, idealIraVal, idealBrokerageVal, employerMatchVal, employerMatchMax, needsDifVal, investDifVal, wantsDifVal);
   }
@@ -293,7 +287,7 @@ const NetWorthDash = () => {
       <div className="grid text-aura-purple bg-center bg-gradient-to-br from-aura-green/50 via-aura-pink/50 to-aura-purple/50">
         <h1 id="header" className="text-center text-5xl mt-4 mb-4">Money Manager</h1>
         <p className="text-center mb-4">A breakdown of your spending based on the 50-30-20 Rule.</p>
-        <p className="text-center text-sm italic mb-4">* income after tax assumes single file, W2 employee with standard deductions *</p>
+        <p className="text-center text-sm mb-4">* income after tax assumes single file, W2 employee with standard deductions *</p>
         {/* FORM START */}
         <form id="form" className="justify-self-center border-4 border-primary rounded-xl bg-base-100 mb-4" onSubmit={handleFormSubmission}>
           {/* PRELIMINARY QUESTIONS */}
@@ -346,7 +340,7 @@ const NetWorthDash = () => {
                   <td>
                     <input className="w-36 input border-primary input-xs text-center placeholder:text-aura-purple"
                       type='number'
-                      step='1'
+                      step='.1'
                       min='0'
                       name="employerMatch"
                       placeholder="Percentage" />
@@ -407,8 +401,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td>
                   <p>Checking Account</p>
-                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">1 months expenses + 30%</p>
+                  <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs text-green-500">1 months expenses + 30%</p>
                 </td>
                 <td className="align-top">
                   <input id="checking" className="input border-primary input-xs text-center placeholder:text-aura-purple"
@@ -426,8 +420,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-60">
                   <p>Savings Account</p>
-                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">#emergency months x expenses</p>
+                  <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs text-green-500">#emergency months x expenses</p>
                 </td>
                 <td className="w-44 align-top">
                   <input id="savings" className="input border-primary input-xs text-center placeholder:text-aura-purple"
@@ -535,8 +529,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-fit">
                   <p>RSUs</p>
-                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">10% of Total Assets</p>
+                  <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs text-green-500">10% of Total Assets</p>
                 </td>
                 <td className="align-top">
                   <input id='rsu' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
@@ -567,7 +561,7 @@ const NetWorthDash = () => {
               </tr>
               {/* TOTAL ASSETS ROW */}
               <tr className="hover">
-                <td className="font-bold italic text-lime-400">Total Assets</td>
+                <td className="font-bold text-lime-400">Total Assets</td>
                 <td></td>
                 <td className="font-bold text-lime-400">{formatDollars(totalAssets)}</td>
                 <td></td>
@@ -639,14 +633,14 @@ const NetWorthDash = () => {
               </tr>
               {/* TOTAL LIABILITIES ROW */}
               <tr className="hover">
-                <td className="font-bold italic text-red-500">Total Liabilities</td>
+                <td className="font-bold text-red-500">Total Liabilities</td>
                 <td></td>
                 <td className="font-bold text-red-500">{formatDollars(totalLiabilities)}</td>
               </tr>
               {/* NET WORTH ROW */}
               <tr className="hover">
                 <td className="w-fit font-bold text-yellow-500">Net Worth</td>
-                <td className="text-center italic font-bold text-yellow-500">Assets - Liabilities</td>
+                <td className="text-center font-bold text-yellow-500">Assets - Liabilities</td>
                 <td className="font-bold text-yellow-500">{formatDollars(netWorth)}</td>
               </tr>
             </tbody>
@@ -665,7 +659,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-60">
                   <p>State of Residence</p>
-                  <p className="text-xs italic mt-1">Enter "DC" for Washington, DC</p>
+                  <p className="text-xs mt-1">Enter "DC" for Washington, DC</p>
                 </td>
                 <td>
                   <input id='state' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
@@ -702,7 +696,7 @@ const NetWorthDash = () => {
               </tr>
               {/* MONTHLY POST TAX INCOME */}
               <tr className="hover">
-                <td className="font-bold italic text-lime-400">Monthly Net Income</td>
+                <td className="font-bold text-lime-400">Monthly Net Income</td>
                 <td></td>
                 <td className="font-bold text-lime-400">{formatDollars(postTaxMonthlyIncome)}</td>
               </tr>
@@ -724,8 +718,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-60">
                   <p>Housing (Rent/Mortgage)</p>
-                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">30% of Monthly Net</p>
+                  <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs text-green-500">30% of Monthly Net</p>
                 </td>
                 <td className="align-top">
                   <input id='housing' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
@@ -801,10 +795,10 @@ const NetWorthDash = () => {
               </tr>
               {/* MONTHLY NECESSARY TOTAL ROW */}
               <tr className="hover">
-                <td className="font-bold italic">
+                <td className="font-bold">
                   <p className=" text-red-500">Needs Total</p>
-                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">50% of Monthly Net</p>
+                  <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs text-green-500">50% of Monthly Net</p>
                 </td>
                 <td></td>
                 <td className="font-bold text-red-500 align-top">{formatDollars(necessaryMonthly)}</td>
@@ -833,7 +827,7 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-fit">
                   <p>Cash Savings</p>
-                  {/* <p className="text-xs italic font-bold mt-1">* Ideal = +/- Ideal account balances *</p> */}
+                  {/* <p className="text-xs font-bold mt-1">* Ideal = +/- Ideal account balances *</p> */}
                 </td>
                 <td>
                     <input className="w-40 input border-primary input-xs text-center placeholder:text-aura-purple"
@@ -851,8 +845,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-fit">
                   <p>Employer Sponsored Retirement</p>
-                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">{maxOrMatch !== 'Match' ? maxOrMatch + ' Contribution': 'Employer Match'}</p>
+                  <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs text-green-500">{maxOrMatch !== 'Match' ? maxOrMatch + ' Contribution': 'Employer Match'}</p>
                 </td>
                 <td className="text-center align-top">
                   <div className="float-left">
@@ -875,7 +869,7 @@ const NetWorthDash = () => {
                   {esrInputType === '%' &&
                   <input className="input border-primary input-xs text-center mt-1 placeholder:text-aura-purple"
                   type='number'
-                  step='1'
+                  step='.01'
                   min='0'
                   name='retirementMonthlyPercent'
                   placeholder='% Per Month' />
@@ -889,8 +883,8 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-fit">
                   <p>Employer Retirement Match</p>
-                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">{maxOrMatch === 'No' ? 'No Contribution' : maxOrMatch + ' Per Month'}</p>
+                  <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs text-green-500">{maxOrMatch === 'No' ? 'No Contribution' : maxOrMatch + ' Per Month'}</p>
                 </td>
                 <td className="text-center align-top">{employerMatch}%</td>
                 <td className="align-top">{formatDollars(retirementEmployerMatch)}</td>
@@ -961,10 +955,10 @@ const NetWorthDash = () => {
               </tr>
               {/* MONTHLY SAVINGS TOTAL */}
               <tr className="hover">
-                <td className="font-bold italic text-yellow-500">
+                <td className="font-bold text-yellow-500">
                   <p>Savings Total</p>
-                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">20% of Monthly Net</p>
+                  <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs text-green-500">20% of Monthly Net</p>
                 </td>
                 <td></td>
                 <td className="font-bold text-yellow-500 align-top">{formatDollars(totalSavingsMonthly)}</td>
@@ -1047,10 +1041,10 @@ const NetWorthDash = () => {
               </tr>
               {/* MONTHLY WANTS TOTAL ROW */}
               <tr className="hover">
-                <td className="font-bold italic text-orange-500">
+                <td className="font-bold text-orange-500">
                   <p>Wants Total</p>
-                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">30% of Monthly Net</p>
+                  <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs text-green-500">30% of Monthly Net</p>
                 </td>
                 <td></td>
                 <td className="font-bold text-orange-500 align-top">{formatDollars(totalExtras)}</td>
@@ -1059,10 +1053,10 @@ const NetWorthDash = () => {
               </tr>
               {/* MONTHLY EXPENSES TOTAL */}
               <tr className="hover">
-                <td className="font-bold italic text-red-500">
+                <td className="font-bold text-red-500">
                   <p>Total Monthly Expenses</p>
-                  <p className="text-xs italic underline mt-1 text-green-500">50-30-20</p>
-                  <p className="text-xs italic text-green-500">Monthly Net Income</p>
+                  <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
+                  <p className="text-xs text-green-500">Monthly Net Income</p>
                 </td>
                 <td></td>
                 <td className="font-bold text-red-500 align-top">{formatDollars(totalMonthlyExpenses)}</td>
