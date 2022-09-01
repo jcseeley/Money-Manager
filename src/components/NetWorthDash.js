@@ -181,10 +181,9 @@ const NetWorthDash = () => {
     const retirementMonthlyVal = monthlyPreTaxRetirementVal > 0 ? monthlyPreTaxRetirementVal : postTaxRetirmentArr[0];
     const employerMatchVal = preTaxEmployerMatchVal > 0 ? preTaxEmployerMatchVal : postTaxRetirmentArr[1];
     const employerMatchMax = preTaxEmployerMatchMax > 0 ? preTaxEmployerMatchMax : postTaxRetirmentArr[2];
-
     // MONTHLY CALCULATIONS
     const monthlyNecessaryVal = getNecessaryMonthlyTotal(housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput);
-    const totalSavingsVal = getMonthlySavingsTotal(cashMonthlyInput, parse(currentAnnualContributionVal / 12), iraMonthlyInput, brokerageMonthlyInput, cryptoSavingsInput, rsuSavingsInput);
+    const totalSavingsVal = getMonthlySavingsTotal(cashMonthlyInput, retirementMonthlyVal, iraMonthlyInput, brokerageMonthlyInput, cryptoSavingsInput, rsuSavingsInput);
     const monthlyExtraVal = getExtraMonthlyTotal(travelInput, shoppingInput, diningInput, otherInput);
     const totalMonthlyVal = getCombinedMonthlyTotal(monthlyNecessaryVal, totalSavingsVal, monthlyExtraVal);
     const monthlyEmergency = (monthlyNecessaryVal + monthlyExtraVal);
