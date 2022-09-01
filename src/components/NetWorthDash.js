@@ -20,7 +20,8 @@ import {
   getDifference,
   getIdealHousing,
   getSavingsContributions,
-  getPreTaxRetirement
+  getPreTaxRetirement,
+  getPostTaxRetirement
 } from "../functions/NetWorthCalculators";
 
 const NetWorthDash = () => {
@@ -162,19 +163,25 @@ const NetWorthDash = () => {
     const totalLiabilitiesVal = getLiabilityTotal(creditDebtInput, studentDebtInput, carLoanInput, mortgageInput);
     const totalAssetVal = getAssetTotal(checkingInput, savingsInput, realEstateInput, cryptoAssetInput, retirementInput, iraInput, publicInput, privateInput, rsuAssetInput, carAssetInput);
     const netWorthVal = getNetWorth(totalAssetVal, totalLiabilitiesVal);
-    // PRE-TAX CALCULATIONS
+    // PRE-TAX RETIREMENT
     const preTaxRetirementArr = getPreTaxRetirement(annualIncomeInput, employerPlanInput, employerMatchInput, maxOrMatchInput, ageInput, retirementDollarsInput, retirementPercentInput);
     const currentAnnualContributionVal = preTaxRetirementArr[0];
-    const retirementMonthlyVal = parse(preTaxRetirementArr[0] / 12);
-    const employerMatchVal = parse(preTaxRetirementArr[1] / 12);
+    const monthlyPreTaxRetirementVal = parse(preTaxRetirementArr[0] / 12);
+    const preTaxEmployerMatchVal = parse(preTaxRetirementArr[1] / 12);
     // const annualRetirementMaxVal = preTaxRetirementArr[2];
-    const employerMatchMax = parse(preTaxRetirementArr[3] / 12);
+    const preTaxEmployerMatchMax = parse(preTaxRetirementArr[3] / 12);
     // INCOME CALCULATIONS
     const annualPostRetirementIncome = parse(annualIncomeInput - currentAnnualContributionVal);
     const monthlyPostRetirementIncome = parse(getNetIncome(stateInput, annualPostRetirementIncome)/12);
     const annualPostTaxVal = getNetIncome(stateInput, annualPostRetirementIncome) + currentAnnualContributionVal;
     const monthlyIncomeVal = getMonthlyIncome(annualIncomeInput);
     const monthlyPostTaxVal = getMonthlyIncome(annualPostTaxVal);
+    // POST-TAX RETIREMENT
+    const postTaxRetirmentArr = getPostTaxRetirement(monthlyPostRetirementIncome, employerPlanInput, employerMatchInput, maxOrMatchInput, ageInput, retirementDollarsInput, retirementPercentInput);
+    const retirementMonthlyVal = monthlyPreTaxRetirementVal > 0 ? monthlyPreTaxRetirementVal : postTaxRetirmentArr[0];
+    const employerMatchVal = preTaxEmployerMatchVal > 0 ? preTaxEmployerMatchVal : postTaxRetirmentArr[1];
+    const employerMatchMax = preTaxEmployerMatchMax > 0 ? preTaxEmployerMatchMax : postTaxRetirmentArr[2];
+
     // MONTHLY CALCULATIONS
     const monthlyNecessaryVal = getNecessaryMonthlyTotal(housingInput, healthcareInput, foodInput, studentPaymentInput, carPaymentInput);
     const totalSavingsVal = getMonthlySavingsTotal(cashMonthlyInput, parse(currentAnnualContributionVal / 12), iraMonthlyInput, brokerageMonthlyInput, cryptoSavingsInput, rsuSavingsInput);

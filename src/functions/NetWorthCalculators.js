@@ -134,19 +134,34 @@ export const getInvestValue = (monthlyNet, monthlyGross, employerPlan, maxOrMatc
 
 // Needs to return actual pretax amount, max amount, and employer match amount 
 export const getPreTaxRetirement = (grossIncome, employerPlan, employerMatch, maxOrMatch, age, retirementDollars, retirementPercent) => {
-  const annualRetirementMax = 20500;
-  const fiftyMax = 27000;
-  const actualMax = age >= 50 ? fiftyMax : annualRetirementMax;
-  const percentContribution = parse(grossIncome * (retirementPercent/100));
-  const currentContribution = retirementDollars > 0 ? parse(retirementDollars * 12) : percentContribution;
-  const annualPreTaxContribution = currentContribution <= actualMax ? currentContribution : actualMax;
-  const maxEmployerMatch = parse((employerMatch/100) * grossIncome);
-  const actualEmployerMatch = annualPreTaxContribution >= maxEmployerMatch ? maxEmployerMatch : annualPreTaxContribution;
-  
   if (employerPlan !== 'Roth' && employerPlan !== 'No' && maxOrMatch !== 'No') {
+    const annualRetirementMax = 20500;
+    const fiftyMax = 27000;
+    const actualMax = age >= 50 ? fiftyMax : annualRetirementMax;
+    const percentContribution = parse(grossIncome * (retirementPercent/100));
+    const currentContribution = retirementDollars > 0 ? parse(retirementDollars * 12) : percentContribution;
+    const annualPreTaxContribution = currentContribution <= actualMax ? currentContribution : actualMax;
+    const maxEmployerMatch = parse((employerMatch/100) * grossIncome);
+    const actualEmployerMatch = annualPreTaxContribution >= maxEmployerMatch ? maxEmployerMatch : annualPreTaxContribution;
     return [annualPreTaxContribution, actualEmployerMatch, actualMax, maxEmployerMatch];
   } else {
     return [0,0,0,0];
+  }
+}
+
+export const getPostTaxRetirement = (monthlyNetIncome, employerPlan, employerMatch, maxOrMatch, age, retirementDollars, retirementPercent) => {
+  if (employerPlan === 'Roth' && maxOrMatch !== 'No') {
+    const retirementMax = 1708.33;
+    const fiftyMax = 2250;
+    const actualMax = age >= 50 ? fiftyMax : retirementMax;
+    const percentContribution = parse(monthlyNetIncome * (retirementPercent/100));
+    const currentContribution = retirementDollars > 0 ? parse(retirementDollars) : percentContribution;
+    const monthlyPostTaxContribution = currentContribution <= actualMax ? currentContribution : actualMax;
+    const maxEmployerMatch = parse((employerMatch/100) * monthlyNetIncome);
+    const actualEmployerMatch = monthlyPostTaxContribution >= maxEmployerMatch ? maxEmployerMatch : monthlyPostTaxContribution;
+    return [monthlyPostTaxContribution, actualEmployerMatch, maxEmployerMatch];
+  } else {
+    return [0,0,0];
   }
 }
 
