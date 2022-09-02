@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { getNetIncome } from "../functions/getNetIncome";
 import {
   parse,
   formatDollars,
@@ -11,7 +12,6 @@ import {
   getMonthlySavingsTotal,
   getCombinedMonthlyTotal,
   getMonthlyNet,
-  getNetIncome,
   getNeedsValue,
   getWantsValue,
   getInvestValue, 
