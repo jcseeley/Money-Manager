@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getNetIncome } from "../functions/getNetIncome";
+import { getSavingsContributions } from "../functions/getSavingsContributions";
 import {
   parse,
   formatDollars,
@@ -19,7 +20,6 @@ import {
   getIdealSavings,
   getDifference,
   getIdealHousing,
-  getSavingsContributions,
   getPreTaxRetirement,
   getPostTaxRetirement
 } from "../functions/NetWorthCalculators";
