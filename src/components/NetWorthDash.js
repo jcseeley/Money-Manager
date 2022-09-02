@@ -194,7 +194,7 @@ const NetWorthDash = () => {
     const idealSavingsVal = getIdealSavings(emergencyMonthsInput, monthlyEmergency);
     const savingsDifVal = getDifference(savingsInput, idealSavingsVal);
     const rsuIdealVal = parse(totalAssetVal * .1);
-    const idealSaveVal = getInvestValue(monthlyPostTaxVal, monthlyIncomeVal, employerPlanInput, maxOrMatch, retirementMonthlyVal);
+    const idealSaveVal = getInvestValue(monthlyPostTaxVal, monthlyIncomeVal, employerPlanInput, maxOrMatch, retirementMonthlyVal, (checkingDifVal + savingsDifVal), ageInput);
     const idealHousingVal = getIdealHousing(monthlyPostTaxVal, monthlyPostRetirementIncome, idealSaveVal, maxOrMatchInput);
     const idealNeedsVal = getNeedsValue(monthlyPostTaxVal, monthlyPostRetirementIncome, idealSaveVal, maxOrMatchInput);
     const idealWantsVal = getWantsValue(monthlyPostTaxVal, monthlyPostRetirementIncome, idealSaveVal, maxOrMatchInput);
