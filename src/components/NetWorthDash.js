@@ -503,8 +503,11 @@ const NetWorthDash = () => {
               </tr>
               {/* PUBLIC EQUITIES INPUT */}
               <tr className="hover">
-                <td className="w-fit">Public Equities</td>
-                <td>
+                <td className="w-fit">
+                  <p>Public Equities</p>
+                  <p className="text-xs">(Not including RSUs or ESPPs)</p>
+                </td>
+                <td className="align-top">
                   <input id='public' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
@@ -512,14 +515,17 @@ const NetWorthDash = () => {
                     name='publicEquity'
                     placeholder='Value' />
                 </td>
-                <td>{formatDollars(publicEquity)}</td>
+                <td className="align-top">{formatDollars(publicEquity)}</td>
                 <td></td>
                 <td></td>
               </tr>
               {/* PRIVATE EQUITIES INPUT */}
               <tr className="hover">
-                <td className="w-fit">Private Equities</td>
-                <td>
+                <td className="w-fit">
+                  <p>Private Equities</p>
+                  <p className="text-xs">(Not including RSUs or ESPPs)</p>
+                </td>
+                <td className="align-top">
                   <input id='private' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
                     step='.01'
@@ -527,7 +533,7 @@ const NetWorthDash = () => {
                     name='privateEquity'
                     placeholder='Value' />
                 </td>
-                <td>{formatDollars(privateEquity)}</td>
+                <td className="align-top">{formatDollars(privateEquity)}</td>
                 <td></td>
                 <td></td>
               </tr>
