@@ -792,7 +792,10 @@ const NetWorthDash = () => {
               </tr>
               {/* MONTHLY CAR PAYMENT INPUT */}
               <tr className="hover">
-                <td className="w-fit">Car</td>
+                <td className="w-fit">
+                  <p>Transportation</p>
+                  <p className="text-xs">(Car, Gas, Insurance, Public Transit, etc.)</p>
+                </td>
                 <td>
                   <input id='carPayment' className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
