@@ -729,7 +729,8 @@ const NetWorthDash = () => {
               {/* MONTHLY HOUSING INPUT */}
               <tr className="hover">
                 <td className="w-60">
-                  <p>Housing (Rent/Mortgage)</p>
+                  <p>Housing</p>
+                  <p className="text-xs">(Rent/Mortgage, Insurance, Utilities, etc.)</p>
                   <p className="text-xs underline mt-1 text-green-500">50-30-20</p>
                   <p className="text-xs text-green-500">30% of Monthly Net</p>
                 </td>
@@ -802,7 +803,7 @@ const NetWorthDash = () => {
                     step='.01'
                     min='0'
                     name='carPayment'
-                    placeholder='Monthly Payment' />
+                    placeholder='Monthly Total' />
                 </td>
                 <td>{formatDollars(carPayment)}</td>
                 <td></td>
