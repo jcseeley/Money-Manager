@@ -1002,7 +1002,7 @@ const NetWorthDash = () => {
               </tr>
               {/* MONTHLY DINING INPUT */}
               <tr className="hover">
-                <td className="w-fit">Dining</td>
+                <td className="w-fit">Dining / Takeout</td>
                 <td>
                   <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
                     type='number'
