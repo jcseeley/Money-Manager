@@ -64,7 +64,7 @@ export const getIdealChecking = (monthlyEmergency) => {
 }
 
 export const getDifference = (current, ideal) => {
-  const difference = parse(current - ideal);
+  const difference = parse(ideal - current);
   return difference;
 }
 
