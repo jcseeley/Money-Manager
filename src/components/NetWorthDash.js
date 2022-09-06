@@ -109,6 +109,13 @@ const NetWorthDash = () => {
     val !== 'No' ? setEmployerQuestions(true) : setEmployerQuestions(false);
   }
 
+  // SET OUTPUT COLOR FUNCTION
+  const setTextColor = (difference) => {
+    const green = 'text-green-500 font-bold align-top';
+    const red = 'text-red-500 font-bold align-top';
+    return difference.includes('-') ? red : green;
+  }
+
   // FORM HANDLER FUNCTION
   const handleFormSubmission = (event) => {
     event.preventDefault();
@@ -190,9 +197,9 @@ const NetWorthDash = () => {
     const monthlyNetVal = getMonthlyNet(monthlyPostTaxVal, totalMonthlyVal);
     // IDEAL/DIFFERENCE CALCULATIONS
     const idealCheckingVal = getIdealChecking(monthlyEmergency);
-    const checkingDifVal = getDifference(checkingInput, idealCheckingVal);
+    const checkingDifVal = getDifference(idealCheckingVal, checkingInput);
     const idealSavingsVal = getIdealSavings(emergencyMonthsInput, monthlyEmergency);
-    const savingsDifVal = getDifference(savingsInput, idealSavingsVal);
+    const savingsDifVal = getDifference(idealSavingsVal, savingsInput);
     const rsuIdealVal = parse(totalAssetVal * .1);
     const idealSaveVal = getInvestValue(monthlyPostTaxVal, monthlyIncomeVal, employerPlanInput, maxOrMatch, retirementMonthlyVal, (checkingDifVal + savingsDifVal), ageInput);
     const idealHousingVal = getIdealHousing(monthlyPostTaxVal, monthlyPostRetirementIncome, idealSaveVal, maxOrMatchInput);
