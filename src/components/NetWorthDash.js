@@ -111,9 +111,14 @@ const NetWorthDash = () => {
 
   // SET OUTPUT COLOR FUNCTION
   const setTextColor = (difference) => {
-    const green = 'text-green-500 font-bold align-top';
-    const red = 'text-red-500 font-bold align-top';
-    return difference.includes('-') ? red : green;
+    if (isNaN(difference)) {
+      return;
+    } else {
+      const green = 'text-green-500 font-bold align-top';
+      const red = 'text-red-500 font-bold align-top';
+      const blue = 'text-blue-500 font-bold align-top';
+      return difference < 0 ? red : difference > 0 ? green : blue;
+    }
   }
 
   // FORM HANDLER FUNCTION
@@ -427,7 +432,7 @@ const NetWorthDash = () => {
                 </td>
                 <td className="align-top">{formatDollars(checking)}</td>
                 <td className="text-green-500 font-bold align-top">{formatDollars(idealChecking)}</td>
-                <td className="text-blue-500 font-bold align-top">{formatDollars(checkingDifference)}</td>
+                <td className={setTextColor(checkingDifference)}>{formatDollars(checkingDifference)}</td>
               </tr>
               {/* SAVINGS ASSET INPUT */}
               <tr className="hover">
@@ -446,7 +451,7 @@ const NetWorthDash = () => {
                 </td>
                 <td className="align-top">{formatDollars(savings)}</td>
                 <td className="text-green-500 font-bold align-top">{formatDollars(idealSavings)}</td>
-                <td className="text-blue-500 font-bold align-top">{formatDollars(savingsDifference)}</td>
+                <td className={setTextColor(savingsDifference)}>{formatDollars(savingsDifference)}</td>
               </tr>
               {/* REAL ESTATE ASSET INPUT */}
               <tr className="hover">
@@ -561,7 +566,7 @@ const NetWorthDash = () => {
                 </td>
                 <td className="align-top">{formatDollars(rsuAsset)}</td>
                 <td className="text-green-500 font-bold align-top">{rsuAsset > 0 && formatDollars(rsuAssetIdeal)}</td>
-                <td className="text-blue-500 font-bold align-top">{rsuAsset > 0 && formatDollars(rsuAsset - rsuAssetIdeal)}</td>
+                <td className={setTextColor(rsuAssetIdeal - rsuAsset)}>{rsuAsset > 0 && formatDollars(rsuAssetIdeal - rsuAsset)}</td>
               </tr>
               {/* CAR ASSET INPUT */}
               <tr className="hover">
@@ -751,7 +756,7 @@ const NetWorthDash = () => {
                 </td>
                 <td className="align-top">{formatDollars(housing)}</td>
                 <td className="text-green-500 font-bold align-top">{formatDollars(idealHousing)}</td>
-                <td className="text-blue-500 font-bold align-top">{formatDollars(housingDif)}</td>
+                <td className={setTextColor(housingDif)}>{formatDollars(housingDif)}</td>
               </tr>
               {/* MONTHLY HEALTHCARE INPUT */}
               <tr className="hover">
