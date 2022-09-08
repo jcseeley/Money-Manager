@@ -212,7 +212,8 @@ const NetWorthDash = () => {
     const idealSavingsVal = getIdealSavings(emergencyMonthsInput, monthlyEmergency);
     const savingsDifVal = getDifference(idealSavingsVal, savingsInput);
     const rsuIdealVal = parse(totalAssetVal * .1);
-    const idealSaveVal = getInvestValue(monthlyPostTaxVal, monthlyIncomeVal, employerPlanInput, maxOrMatch, retirementMonthlyVal, (checkingDifVal + savingsDifVal), ageInput);
+    const idealSaveVal = getInvestValue(monthlyPostTaxVal, monthlyIncomeVal, employerPlanInput, maxOrMatchInput, retirementMonthlyVal, (checkingDifVal + savingsDifVal), ageInput);
+    console.log("monthlyPostTaxVal: ", monthlyPostTaxVal, "monthylIncomeVal: ", monthlyIncomeVal, "employerPlanInput: ", employerPlanInput, "maxOrMatch: ", maxOrMatchInput, "retirementMonthlyVal: ", retirementMonthlyVal, "cashDif: ", (checkingDifVal + savingsDifVal), "age: ", ageInput, "idealSaveVal: ", idealSaveVal);
     const idealHousingVal = getIdealHousing(monthlyPostTaxVal, monthlyPostRetirementIncome, idealSaveVal, maxOrMatchInput);
     const idealNeedsVal = getNeedsValue(monthlyPostTaxVal, monthlyPostRetirementIncome, idealSaveVal, maxOrMatchInput);
     const idealWantsVal = getWantsValue(monthlyPostTaxVal, monthlyPostRetirementIncome, idealSaveVal, maxOrMatchInput);
@@ -221,7 +222,7 @@ const NetWorthDash = () => {
     const investDifVal = getDifference(totalSavingsVal, idealSaveVal);
     const wantsDifVal = getDifference(monthlyExtraVal, idealWantsVal);
     // SAVINGS CALCULATIONS
-    const savingsArr = getSavingsContributions(ageInput, checkingInput, idealCheckingVal, savingsInput, idealSavingsVal, monthlyPostTaxVal, monthlyNecessaryVal, idealSaveVal, employerPlanInput, monthlyIncomeVal, maxOrMatch, employerMatchInput, retirementMonthlyVal);
+    const savingsArr = getSavingsContributions(ageInput, checkingInput, idealCheckingVal, savingsInput, idealSavingsVal, monthlyPostTaxVal, monthlyNecessaryVal, idealSaveVal, employerPlanInput, monthlyIncomeVal, maxOrMatchInput, employerMatchInput, retirementMonthlyVal);
     const idealCashVal = savingsArr[0];
     const idealRetirementVal = savingsArr[1];
     const idealIraVal = savingsArr[2];
