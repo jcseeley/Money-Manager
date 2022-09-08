@@ -38,8 +38,8 @@ export const getNecessaryMonthlyTotal = (rent, health, food, studentLoan, car) =
   return totalNecessary;
 }
 
-export const getExtraMonthlyTotal = (travel, shopping, dining, other) => {
-  const totalAdditional = parse(travel + shopping + dining + other);
+export const getExtraMonthlyTotal = (travel, shopping, dining, healthBeauty, fitness, streaming, other) => {
+  const totalAdditional = parse(travel + shopping + dining + healthBeauty + fitness + streaming + other);
   return totalAdditional;
 }
 
