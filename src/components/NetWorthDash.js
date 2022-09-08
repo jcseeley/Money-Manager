@@ -831,7 +831,7 @@ const NetWorthDash = () => {
                 <td></td>
                 <td className="font-bold text-red-500 align-top">{formatDollars(necessaryMonthly)}</td>
                 <td className="font-bold text-green-500 align-top">{formatDollars(idealNecessaryMonthly)}</td>
-                <td className="font-bold text-blue-500 align-top">{formatDollars(needsDif)}</td>
+                <td className={setTextColor(needsDif)}>{formatDollars(needsDif)}</td>
               </tr>
             </tbody>
           </table>
@@ -991,7 +991,7 @@ const NetWorthDash = () => {
                 <td></td>
                 <td className="font-bold text-yellow-500 align-top">{formatDollars(totalSavingsMonthly)}</td>
                 <td className="font-bold text-green-500 align-top">{formatDollars(idealSavingsMonthly)}</td>
-                <td className="font-bold text-blue-500 align-top">{formatDollars(investDif)}</td>
+                <td className={setTextColor(investDif)}>{formatDollars(investDif)}</td>
               </tr>
             </tbody>
           </table>
@@ -1077,7 +1077,7 @@ const NetWorthDash = () => {
                 <td></td>
                 <td className="font-bold text-orange-500 align-top">{formatDollars(totalExtras)}</td>
                 <td className="font-bold text-green-500 align-top">{formatDollars(idealTotalExtras)}</td>
-                <td className="font-bold text-blue-500 align-top">{formatDollars(wantsDif)}</td>
+                <td className={setTextColor(wantsDif)}>{formatDollars(wantsDif)}</td>
               </tr>
               {/* MONTHLY EXPENSES TOTAL */}
               <tr className="hover">
@@ -1089,7 +1089,7 @@ const NetWorthDash = () => {
                 <td></td>
                 <td className="font-bold text-red-500 align-top">{formatDollars(totalMonthlyExpenses)}</td>
                 <td className="font-bold text-green-500 align-top">{formatDollars(postTaxMonthlyIncome)}</td>
-                <td className="font-bold text-blue-500 align-top">{formatDollars(netMonthlyIncome)}</td>
+                <td className={setTextColor(netMonthlyIncome)}>{formatDollars(netMonthlyIncome)}</td>
               </tr>
             </tbody>
           </table>
