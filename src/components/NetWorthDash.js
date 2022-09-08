@@ -563,7 +563,8 @@ const NetWorthDash = () => {
               {/* RSU INPUT */}
               <tr className="hover">
                 <td className="w-fit">
-                  <p>RSUs</p>
+                  <p>Company Stock</p>
+                  <p className="text-xs">(Vested RSUs, ESPPs, etc)</p>
                   <p className="text-xs underline mt-1 text-green-600">50-30-20</p>
                   <p className="text-xs text-green-600">10% of Total Assets</p>
                 </td>
