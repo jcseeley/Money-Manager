@@ -77,7 +77,6 @@ export const getIdealHousing = (monthlyNet, monthlyPostRetirement, idealSave, ma
   const idealHousing = parse(monthlyNet * .3);
   const overNetHousing = parse(monthlyPostRetirement * .4);
   const net20 = parse(monthlyNet * .2);
-  // const maxCheck = maxOrMatchInput === 'Max';
 
   if (idealSave > net20) {
     return overNetHousing;
@@ -90,7 +89,6 @@ export const getNeedsValue = (monthlyNet, monthlyPostRetirement, idealSave, maxO
   const fiftyPercent = parse(monthlyNet * .5);
   const overNetFifty = parse(monthlyPostRetirement * .6);
   const net20 = parse(monthlyNet * .2);
-  // const maxCheck = maxOrMatchInput === 'Max';
 
   if (idealSave > net20) {
     return overNetFifty;
@@ -103,7 +101,6 @@ export const getWantsValue = (monthlyNet, monthlyPostRetirement, idealSave, maxO
   const thirtyPercent = parse(monthlyNet * .3);
   const overNetThirty = parse(monthlyPostRetirement * .4);
   const net20 = parse(monthlyNet * .2);
-  // const maxCheck = maxOrMatchInput === 'Max';
 
   if (idealSave > net20) {
     return overNetThirty;
@@ -131,7 +128,6 @@ export const getInvestValue = (monthlyNet, monthlyGross, employerPlan, maxOrMatc
   }
 }
 
-// Needs to return actual pretax amount, max amount, and employer match amount 
 export const getPreTaxRetirement = (grossIncome, employerPlan, employerMatch, maxOrMatch, age, retirementDollars, retirementPercent) => {
   if (employerPlan !== 'Roth' && employerPlan !== 'No' && maxOrMatch !== 'No') {
     const annualRetirementMax = 20500;
@@ -142,9 +138,9 @@ export const getPreTaxRetirement = (grossIncome, employerPlan, employerMatch, ma
     const annualPreTaxContribution = currentContribution <= actualMax ? currentContribution : actualMax;
     const maxEmployerMatch = parse((employerMatch/100) * grossIncome);
     const actualEmployerMatch = annualPreTaxContribution >= maxEmployerMatch ? maxEmployerMatch : annualPreTaxContribution;
-    return [annualPreTaxContribution, actualEmployerMatch, actualMax, maxEmployerMatch];
+    return [annualPreTaxContribution, actualEmployerMatch, maxEmployerMatch];
   } else {
-    return [0,0,0,0];
+    return [0,0,0];
   }
 }
 
