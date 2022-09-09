@@ -33,8 +33,8 @@ export const getMonthlyIncome = (income) => {
   return monthlyIncome;
 }
 
-export const getNecessaryMonthlyTotal = (rent, health, food, studentLoan, car) => {
-  const totalNecessary = parse(rent + health + food + studentLoan + car);
+export const getNecessaryMonthlyTotal = (rent, health, food, child, pet, studentLoan, car) => {
+  const totalNecessary = parse(rent + health + food + child + pet + studentLoan + car);
   return totalNecessary;
 }
 
