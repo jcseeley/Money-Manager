@@ -319,7 +319,7 @@ const NetWorthDash = () => {
   return (
     <React.Fragment>
       <div className="grid text-aura-purple bg-center bg-gradient-to-br from-aura-green/50 via-aura-pink/50 to-aura-purple/50">
-        <h1 id="header" className="text-center text-5xl mt-4 mb-4">Savings & Investment Optimizer</h1>
+        <h1 id="header" className="text-center text-5xl mt-4 mb-4">Saving & Investment Optimizer</h1>
         <p className="text-center mb-4">A breakdown of your spending based on the 50-30-20 Rule.</p>
         <p className="text-center text-sm mb-4">* income after tax assumes single file, W2 employee with standard deductions *</p>
         {/* FORM START */}
