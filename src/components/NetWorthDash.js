@@ -436,7 +436,6 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td>
                   <p>Checking Account</p>
-                  <p className="text-xs underline mt-1 text-green-600">50-30-20</p>
                   <p className="text-xs text-green-600">1 months expenses + 30%</p>
                 </td>
                 <td className="align-top">
@@ -455,7 +454,6 @@ const NetWorthDash = () => {
               <tr className="hover">
                 <td className="w-60">
                   <p>Savings Account</p>
-                  <p className="text-xs underline mt-1 text-green-600">50-30-20</p>
                   <p className="text-xs text-green-600">#emergency months x expenses</p>
                 </td>
                 <td className="w-44 align-top">
