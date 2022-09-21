@@ -745,7 +745,7 @@ const NetWorthDash = () => {
           </table>
 
           {/* MONTHLY NEEDS TABLE */}
-          <table className="table table-compact w-full">
+          <table className="table table-compact w-full mb-4">
             <thead>
               <tr>
                 <th className="w-60">Monthly Needs</th>
@@ -884,12 +884,144 @@ const NetWorthDash = () => {
             </tbody>
           </table>
 
+          {/* MONTHLY WANTS TABLE */}
+          <table className="table table-compact w-full">
+            <thead>
+              <tr>
+                <th className="w-60">Monthly Wants</th>
+                <th className="w-44 text-center">Enter Amount</th>
+                <th>Current</th>
+                <th className="text-green-600">Ideal</th>
+                <th className="text-blue-600">Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* MONTHLY TRAVEL INPUT */}
+              <tr className="hover">
+                <td className="w-fit">Travel</td>
+                <td>
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
+                    type='number'
+                    step='.01'
+                    min='0'
+                    name='travelMonthly'
+                    placeholder='Monthly Average' />
+                </td>
+                <td>{formatDollars(travel)}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              {/* MONTHLY DINING INPUT */}
+              <tr className="hover">
+                <td className="w-fit">Dining & Takeout</td>
+                <td>
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
+                    type='number'
+                    step='.01'
+                    min='0'
+                    name='diningMonthly'
+                    placeholder='Monthly Average' />
+                </td>
+                <td>{formatDollars(dining)}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              {/* MONTHLY SHOPPING INPUT */}
+              <tr className="hover">
+                <td className="w-fit">Shopping</td>
+                <td>
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
+                    type='number'
+                    step='.01'
+                    min='0'
+                    name='shoppingMonthly'
+                    placeholder='Monthly Average' />
+                </td>
+                <td>{formatDollars(shopping)}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              {/* MONTHLY HEALTH & BEAUTY INPUT */}
+              <tr className="hover">
+                <td className="w-fit">Health & Beauty</td>
+                <td>
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
+                    type='number'
+                    step='.01'
+                    min='0'
+                    name='healthBeauty'
+                    placeholder='Monthly Average' />
+                </td>
+                <td>{formatDollars(healthBeauty)}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              {/* MONTHLY FITNESS INPUT */}
+              <tr className="hover">
+                <td className="w-fit">Fitness</td>
+                <td>
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
+                    type='number'
+                    step='.01'
+                    min='0'
+                    name='fitness'
+                    placeholder='Monthly Average' />
+                </td>
+                <td>{formatDollars(fitness)}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              {/* MONTHLY STREAMING INPUT */}
+              <tr className="hover">
+                <td className="w-fit">Streaming Services</td>
+                <td>
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
+                    type='number'
+                    step='.01'
+                    min='0'
+                    name='streaming'
+                    placeholder='Monthly Average' />
+                </td>
+                <td>{formatDollars(streaming)}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              {/* MONTHLY OTHER INPUT */}
+              <tr className="hover">
+                <td className="w-fit">Other</td>
+                <td>
+                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
+                    type='number'
+                    step='.01'
+                    min='0'
+                    name='otherMonthly'
+                    placeholder='Monthly Average' />
+                </td>
+                <td>{formatDollars(other)}</td>
+                <td></td>
+                <td></td>
+              </tr>
+              {/* MONTHLY WANTS TOTAL ROW */}
+              <tr className="hover">
+                <td className="font-bold text-orange-600">
+                  <p>Wants Total</p>
+                  <p className="text-xs underline mt-1 text-green-600">50-30-20</p>
+                  <p className="text-xs text-green-600">30% of Monthly Net</p>
+                </td>
+                <td></td>
+                <td className="font-bold text-orange-600 align-top">{formatDollars(totalExtras)}</td>
+                <td className="font-bold text-green-600 align-top">{formatDollars(idealTotalExtras)}</td>
+                <td className={setTextColor(wantsDif)}>{formatDollars(wantsDif)}</td>
+              </tr>
+            </tbody>
+          </table>
+
           {/* SAVINGS INFO */}
           <div className="grid tooltip mt-2 mb-2" data-tip="If possible, 20% of your net income should be saved. Industry experts recommend filling your emergency savings before contributing to any retirement or investment accounts. If your emergency savings is full, you should then focus on your employer sponsored retirement plan. If the annual max isn't feasible, try to at least meet the percentage your employer will match per pay period. Next fill your IRA, then contribute any remaining funds to your brokerage account. The '50-30-20' values below reflect these suggestions based on your age and available income.">
             <button className="justify-self-center btn btn-sm w-fit">Hover For Savings Info</button>
           </div>
           {/* MONTHLY SAVINGS TABLE */}
-          <table className="table table-compact w-full mb-4">
+          <table className="table table-compact w-full">
             <thead>
               <tr>
                 <th className="w-60">Monthly Savings</th>
@@ -1042,138 +1174,6 @@ const NetWorthDash = () => {
                 <td className="font-bold text-green-600 align-top">{formatDollars(idealSavingsMonthly)}</td>
                 <td className={setTextColor(investDif)}>{formatDollars(investDif)}</td>
               </tr>
-            </tbody>
-          </table>
-
-          {/* MONTHLY WANTS TABLE */}
-          <table className="table table-compact w-full">
-            <thead>
-              <tr>
-                <th className="w-60">Monthly Wants</th>
-                <th className="w-44 text-center">Enter Amount</th>
-                <th>Current</th>
-                <th className="text-green-600">Ideal</th>
-                <th className="text-blue-600">Difference</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* MONTHLY TRAVEL INPUT */}
-              <tr className="hover">
-                <td className="w-fit">Travel</td>
-                <td>
-                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
-                    type='number'
-                    step='.01'
-                    min='0'
-                    name='travelMonthly'
-                    placeholder='Monthly Average' />
-                </td>
-                <td>{formatDollars(travel)}</td>
-                <td></td>
-                <td></td>
-              </tr>
-              {/* MONTHLY DINING INPUT */}
-              <tr className="hover">
-                <td className="w-fit">Dining & Takeout</td>
-                <td>
-                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
-                    type='number'
-                    step='.01'
-                    min='0'
-                    name='diningMonthly'
-                    placeholder='Monthly Average' />
-                </td>
-                <td>{formatDollars(dining)}</td>
-                <td></td>
-                <td></td>
-              </tr>
-              {/* MONTHLY SHOPPING INPUT */}
-              <tr className="hover">
-                <td className="w-fit">Shopping</td>
-                <td>
-                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
-                    type='number'
-                    step='.01'
-                    min='0'
-                    name='shoppingMonthly'
-                    placeholder='Monthly Average' />
-                </td>
-                <td>{formatDollars(shopping)}</td>
-                <td></td>
-                <td></td>
-              </tr>
-              {/* MONTHLY HEALTH & BEAUTY INPUT */}
-              <tr className="hover">
-                <td className="w-fit">Health & Beauty</td>
-                <td>
-                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
-                    type='number'
-                    step='.01'
-                    min='0'
-                    name='healthBeauty'
-                    placeholder='Monthly Average' />
-                </td>
-                <td>{formatDollars(healthBeauty)}</td>
-                <td></td>
-                <td></td>
-              </tr>
-              {/* MONTHLY FITNESS INPUT */}
-              <tr className="hover">
-                <td className="w-fit">Fitness</td>
-                <td>
-                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
-                    type='number'
-                    step='.01'
-                    min='0'
-                    name='fitness'
-                    placeholder='Monthly Average' />
-                </td>
-                <td>{formatDollars(fitness)}</td>
-                <td></td>
-                <td></td>
-              </tr>
-              {/* MONTHLY STREAMING INPUT */}
-              <tr className="hover">
-                <td className="w-fit">Streaming Services</td>
-                <td>
-                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
-                    type='number'
-                    step='.01'
-                    min='0'
-                    name='streaming'
-                    placeholder='Monthly Average' />
-                </td>
-                <td>{formatDollars(streaming)}</td>
-                <td></td>
-                <td></td>
-              </tr>
-              {/* MONTHLY OTHER INPUT */}
-              <tr className="hover">
-                <td className="w-fit">Other</td>
-                <td>
-                  <input className="w-fit input border-primary input-xs text-center placeholder:text-aura-purple"
-                    type='number'
-                    step='.01'
-                    min='0'
-                    name='otherMonthly'
-                    placeholder='Monthly Average' />
-                </td>
-                <td>{formatDollars(other)}</td>
-                <td></td>
-                <td></td>
-              </tr>
-              {/* MONTHLY WANTS TOTAL ROW */}
-              <tr className="hover">
-                <td className="font-bold text-orange-600">
-                  <p>Wants Total</p>
-                  <p className="text-xs underline mt-1 text-green-600">50-30-20</p>
-                  <p className="text-xs text-green-600">30% of Monthly Net</p>
-                </td>
-                <td></td>
-                <td className="font-bold text-orange-600 align-top">{formatDollars(totalExtras)}</td>
-                <td className="font-bold text-green-600 align-top">{formatDollars(idealTotalExtras)}</td>
-                <td className={setTextColor(wantsDif)}>{formatDollars(wantsDif)}</td>
-              </tr>
               {/* MONTHLY EXPENSES TOTAL */}
               <tr className="hover">
                 <td className="font-bold text-red-600">
@@ -1188,6 +1188,7 @@ const NetWorthDash = () => {
               </tr>
             </tbody>
           </table>
+
           {/* SUBMIT FORM BUTTON */}
           <div className="grid">
             <button className="btn btn-primary btn-sm justify-self-center mt-4 mb-4" type='submit'>submit</button>
