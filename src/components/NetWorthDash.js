@@ -427,7 +427,7 @@ const NetWorthDash = () => {
                 <th className="w-60">Assets</th>
                 <th className="text-center w-44">Enter Amount</th>
                 <th>Current</th>
-                <th className="text-green-600">50-30-20</th>
+                <th className="text-green-600">Ideal</th>
                 <th className="text-blue-600">Difference</th>
               </tr>
             </thead>
@@ -751,7 +751,7 @@ const NetWorthDash = () => {
                 <th className="w-60">Monthly Needs</th>
                 <th className="w-44 text-center">Enter Amount</th>
                 <th>Current</th>
-                <th className="text-green-600">50-30-20</th>
+                <th className="text-green-600">Ideal</th>
                 <th className="text-blue-600">Difference</th>
               </tr>
             </thead>
@@ -895,7 +895,7 @@ const NetWorthDash = () => {
                 <th className="w-60">Monthly Savings</th>
                 <th className="w-44 text-center">Enter Amount</th>
                 <th>Current</th>
-                <th className="text-green-600">50-30-20</th>
+                <th className="text-green-600">Ideal</th>
                 <th className="text-blue-600">Difference</th>
               </tr>
             </thead>
@@ -1052,7 +1052,7 @@ const NetWorthDash = () => {
                 <th className="w-60">Monthly Wants</th>
                 <th className="w-44 text-center">Enter Amount</th>
                 <th>Current</th>
-                <th className="text-green-600">50-30-20</th>
+                <th className="text-green-600">Ideal</th>
                 <th className="text-blue-600">Difference</th>
               </tr>
             </thead>
