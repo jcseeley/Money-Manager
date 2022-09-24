@@ -1,4 +1,4 @@
-import { parse } from "./NetWorthCalculators";
+import { parse } from "./calculatorFunctions";
 
 export const getSavingsContributions = (age, checking, idealChecking, savings, emergencySavings, monthlyNet, needsTotal, idealInvest, employerPlan, monthlyGross, maxOrMatch, employerMatch, currentContribution) => {
   const retirementMaxPerMonth = 1708.33;

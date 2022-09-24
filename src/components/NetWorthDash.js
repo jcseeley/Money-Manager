@@ -22,7 +22,7 @@ import {
   getIdealHousing,
   getPreTaxRetirement,
   getPostTaxRetirement
-} from "../functions/NetWorthCalculators";
+} from "../functions/calculatorFunctions";
 
 const NetWorthDash = () => {
   // PRELIMINARY QUESTIONS
