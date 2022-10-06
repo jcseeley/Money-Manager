@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Money-Manager/static/css/main.dc1679a1.css",
-    "main.js": "/Money-Manager/static/js/main.2d6fc68a.js",
+    "main.css": "/Money-Manager/static/css/main.8a5e16c4.css",
+    "main.js": "/Money-Manager/static/js/main.c6ddcf9a.js",
     "index.html": "/Money-Manager/index.html",
-    "main.dc1679a1.css.map": "/Money-Manager/static/css/main.dc1679a1.css.map",
-    "main.2d6fc68a.js.map": "/Money-Manager/static/js/main.2d6fc68a.js.map"
+    "main.8a5e16c4.css.map": "/Money-Manager/static/css/main.8a5e16c4.css.map",
+    "main.c6ddcf9a.js.map": "/Money-Manager/static/js/main.c6ddcf9a.js.map"
   },
   "entrypoints": [
-    "static/css/main.dc1679a1.css",
-    "static/js/main.2d6fc68a.js"
+    "static/css/main.8a5e16c4.css",
+    "static/js/main.c6ddcf9a.js"
   ]
 }
