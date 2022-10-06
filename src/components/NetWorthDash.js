@@ -1194,6 +1194,9 @@ const NetWorthDash = () => {
             <button className="btn btn-primary btn-sm justify-self-center mt-4 mb-4" type='submit'>submit</button>
           </div>
         </form>
+        <div className="grid">
+          <p className="text-xs justify-self-center ml-6 mr-6 mb-6">Money Manager Disclosure: Aura provides this “Money Manager Tool” under the Financial Counseling Services offering. The Financial Counseling Service includes a range of financial information, education, and analysis offered on a limited scope basis. The Financial Counseling Service is impersonal in nature, which means that the advice is not tailored to a Client’s, or group of Clients, individual needs and does not purport to meet the objectives or needs of specific Clients or accounts. Consequently, Aura does not rely on Suitability Questionnaire information that the Client inputs into the Platform to provide the Financial Counseling Service. The Financial Counseling Service is available to all Aura Clients.</p>
+        </div>
       </div>
     </React.Fragment>
   );
